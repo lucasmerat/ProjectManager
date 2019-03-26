@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 
 const ProjectDetails = (props) => {
     const {project, auth} = props;   
+    console.log(project)
       if(!auth.uid) {
         return(
             <Redirect to="/signin" />
@@ -24,7 +25,7 @@ const ProjectDetails = (props) => {
 
             </div>
             <div className="card-action grey lighten-4 grey-text">
-                <div className="author">Posted by {project.authorFirstName} {project.authorLastName}</div>
+                <div className="author">Posted by {project.firstName} {project.lastName}</div>
                 <div className="date">18th of March, 3pm</div>
             </div>
         </div>

@@ -11,14 +11,17 @@ class CreateProject extends Component {
     }
     handleChange = (e) =>{
         this.setState({
-            [e.target.id]: e.target.value
-        })
+            [e.target.id]: e.target.value,
+            firstName: this.props.profile.firstName,
+            lastName: this.props.profile.lastName,
+            authorID:this.props.auth.uid
+        });
     }
     handleSubmit = (e) =>{
         e.preventDefault();
         this.props.createProject(this.state)
+        this.props.history.push('/')
     }
-    
   render() {
       const { auth } = this.props;
       if(!auth.uid) {
@@ -49,7 +52,8 @@ class CreateProject extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        auth:state.firebase.auth
+        auth:state.firebase.auth,
+        profile: state.firebase.profile
     }
 }
 

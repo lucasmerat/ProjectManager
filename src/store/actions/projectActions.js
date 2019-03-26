@@ -2,11 +2,9 @@ export const createProject = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         //make asynch call to database  -- then dispatch again and pas in action below
         const firestore = getFirestore();
+        // console.log(this)
         firestore.collection('projects').add({
             ...project, 
-            authorFirstName:'John',
-            authorLastName:'Jill',
-            authorId:12345,
             createdAt: new Date()
         }).then(()=> {
             dispatch({type:"CREATE_PROJECT", project})
