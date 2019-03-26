@@ -17,10 +17,17 @@ const SignedInLinks = (props) => {
     )
 }
 
+const mapStateToProps = (state) =>{
+    console.log(state)
+    return{
+
+    }
+}
+
 const mapDispatchToProps = (dispatch) =>{
     return{
         signOut: () => dispatch(signOut())
     }
 }
 
-export default connect(null,mapDispatchToProps)(SignedInLinks)
+export default connect(mapStateToProps,mapDispatchToProps)(SignedInLinks)
