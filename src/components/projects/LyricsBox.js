@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux' //connects the component to store
 import { editLyrics } from '../../store/actions/projectActions'
+import { notify } from 'react-notify-toast'
 
 
 class LyricsBox extends Component {
@@ -13,8 +14,8 @@ class LyricsBox extends Component {
         });
     }
     handleClick = (e) =>{
-        console.log(this.state)
         this.props.editLyrics(this.props.id, this.state);
+        notify.show('Lyrics saved!');
     }
     componentDidUpdate(){
         console.log('we had an update', this.props)
@@ -35,10 +36,6 @@ const mapDispatchToProps = (dispatch) => {
     return{
         editLyrics: (id, lyrics) => dispatch(editLyrics(id, lyrics))
     }
-}
-
-const mapStateToProps = () =>{
-
 }
 
 export default connect(null, mapDispatchToProps)(LyricsBox)

@@ -6,6 +6,7 @@ import ProjectDetails from './components/projects/ProjectDetails';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import CreateProject from './components/projects/CreateProject';
+import Notifications, {notify} from 'react-notify-toast';
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
+          <Notifications />
           <NavBar />
           <Switch>
             <Route exact path='/' component={Dashboard}></Route>
