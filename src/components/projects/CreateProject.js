@@ -58,6 +58,7 @@ const mapStateToProps = (state) =>{
 }
 
 const mapDispatchToProps = (dispatch) =>{
+    console.log(dispatch)
     return{
         createProject: (project) => dispatch(createProject(project))
     }
