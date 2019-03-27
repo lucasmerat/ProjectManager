@@ -10,7 +10,6 @@ import DeleteProject from './DeleteProject'
 class ProjectDetails extends Component {
     render(){
         const {project, auth} = this.props;   
-        console.log(this.props)
 
       if(!auth.uid) {
         return(
@@ -27,7 +26,7 @@ class ProjectDetails extends Component {
                 </span>
                 <p>{project.content}</p>
 
-                <LyricsBox id={this.props.match.params.id}/>
+                <LyricsBox id={this.props.match.params.id} lyrics={this.props.project.lyrics}/>
 
             </div>
             <div className="card-action grey lighten-4 grey-text">
