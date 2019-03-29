@@ -1,10 +1,30 @@
+
+export const loadProjects = () => {
+    console.log('loading projects')
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        firestore
+        .collection("projects")
+        .get()
+        .then((data)=>{
+            let projects = [];
+            data.forEach(function(doc){
+                let project = doc.data()
+                project.id = doc.id
+               projects.push(project)
+            })
+            dispatch({ type:"LOAD_PROJECTS", projects})
+        })
+    };
+}
+
 export const createProject = project => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     //make asynch call to database  -- then dispatch again and pas in action below
     const firestore = getFirestore();
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
-    
+
     firestore
       .collection("projects")
       .add({
@@ -27,12 +47,15 @@ export const deleteProject = id => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
+
     firestore
       .collection("projects")
       .doc(id)
       .delete()
       .then(() => {
-        dispatch({ type: "DELETE_PROJECT", id });
+        let projects = getState().firestore.ordered.projects
+        console.log(projects)
+        dispatch({ type: "DELETE_PROJECT", projects });
       })
       .catch(err => {
         dispatch({ type: "DELETE_PROJECT_ERROR", err });

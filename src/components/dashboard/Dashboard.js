@@ -5,16 +5,17 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-
+import { loadProjects } from "../../store/actions/projectActions"
+ 
 class Dashboard extends Component {
-    // componentDidMount() {
-    //     this.props.firestore.setListener({collection: 'projects'})
-    // }
+    componentDidMount() {
+        this.props.loadProjects()
+    }
     // componentWillUnmount() {
     //     this.props.firestore.unsetListener({collection: 'projects'})
     // }
   render() {
-    console.log(this.props.projects);
+    console.log(this.props)
     const { projects, auth } = this.props;
     if (!auth.uid) {
       return <Redirect to="/signin" />;
@@ -36,16 +37,22 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state.firestore)
+    console.log(state)
   return {
-    projects: state.firestore.ordered.projects,
+    projects: state.project,
     auth: state.firebase.auth
   };
 };
 
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        loadProjects: () => dispatch(loadProjects())
+    }
+}
+
 export default compose(
   firestoreConnect([{ collection: "projects" }]),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);
 
 //The way we are going to work with external data being asynchronous, is once there is a dispatched action, we pull data, and then poush the data to the recucer once we have that data

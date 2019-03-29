@@ -17,9 +17,6 @@ class LyricsBox extends Component {
         this.props.editLyrics(this.props.id, this.state);
         notify.show('Lyrics saved!');
     }
-    componentDidUpdate(){
-        console.log('we had an update', this.state)
-    }
   render() {
     return (
         <div className="">
