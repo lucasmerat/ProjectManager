@@ -9,14 +9,12 @@ import { loadProjects } from "../../store/actions/projectActions"
  
 class Dashboard extends Component {
     componentDidMount() {
+        console.log("loading projects")
         this.props.loadProjects()
     }
-    // componentWillUnmount() {
-    //     this.props.firestore.unsetListener({collection: 'projects'})
-    // }
   render() {
-    console.log(this.props)
     const { projects, auth } = this.props;
+    console.log(projects)
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     } else {
@@ -37,7 +35,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state)
+  console.log(state)
   return {
     projects: state.project,
     auth: state.firebase.auth

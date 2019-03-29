@@ -18,6 +18,24 @@ export const loadProjects = () => {
     };
 }
 
+export const loadProject = (id) =>{
+  console.log('loading single project')
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore()
+    firestore.collection("projects")
+    .get()
+    .then((data)=>{
+      let project;
+      data.forEach((doc)=>{
+        if(doc.id === id){
+          project = doc.data()
+        }
+      })
+      dispatch({ type: "LOAD_PROJECT", project });
+    })
+  }
+}
+
 export const createProject = project => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     //make asynch call to database  -- then dispatch again and pas in action below
@@ -54,7 +72,6 @@ export const deleteProject = id => {
       .delete()
       .then(() => {
         let projects = getState().firestore.ordered.projects
-        console.log(projects)
         dispatch({ type: "DELETE_PROJECT", projects });
       })
       .catch(err => {
@@ -78,7 +95,7 @@ export const editLyrics = (id, lyrics) => {
         { merge: true }
       )
       .then(() => {
-        dispatch({ type: "UPDATE_LYRICS", lyrics });
+        dispatch({ type: "UPDATE_LYRICS", id, lyrics });
       })
       .catch(err => {
         dispatch({ type: "UPDATE_LYRICS_ERROR", err });

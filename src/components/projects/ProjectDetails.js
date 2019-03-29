@@ -1,73 +1,86 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux' //connects the component to store
-import { firestoreConnect } from 'react-redux-firebase' //Brings in firebase database
-import { compose } from 'redux' //Combines higher order components
-import { Redirect } from 'react-router-dom'
-import moment from 'moment';
-import LyricsBox from './LyricsBox'
-import DeleteProject from './DeleteProject'
+import React, { Component } from "react";
+import { connect } from "react-redux"; //connects the component to store
+import { firestoreConnect } from "react-redux-firebase"; //Brings in firebase database
+import { compose } from "redux"; //Combines higher order components
+import { Redirect } from "react-router-dom";
+import moment from "moment";
+import LyricsBox from "./LyricsBox";
+import DeleteProject from "./DeleteProject";
+import { loadProject } from "../../store/actions/projectActions";
 
 class ProjectDetails extends Component {
-    render(){
-        const {project, auth} = this.props;
-        console.log(project)
-      if(!auth.uid) {
-        return(
-            <Redirect to="/signin" />
-            )
-      }
-    if(project){
-    return(
-    <div className="container section project-details">
-        <div className="card z-depth-0">
-            <div className="card-content">
-                <span className="card-title">
-                    {project.title}
-                </span>
-                <p>{project.content}</p>
-                <div className="row">
-                    <div className="lyrics col s6">
-                        <LyricsBox id={this.props.match.params.id} lyrics={this.props.project.lyrics}/>
-                    </div>
-                    <div className="todo col s6">
-
-                    </div>
-                </div>
-
-            </div>
-            <div className="card-action grey lighten-4 grey-text">
-                <div className="author">Posted by {project.firstName} {project.lastName}</div>
-                <div className="date">{moment(project.createdAt.toDate()).calendar()}</div>
-                <DeleteProject history= {this.props.history} id={this.props.match.params.id}/>
-            </div>
-        </div>
-    </div>
-    )
-    } else {
-        return(
-        <div className="container center">
-            <p>Loading project...</p>
-        </div>
-        )
+  componentDidMount() {
+    this.props.loadProject(this.props.match.params.id);
+    console.log("Component mounted");
+  }
+  render() {
+    const { singleProject, auth } = this.props;
+    console.log(Object.keys(singleProject).length)
+    if (!auth.uid) {
+      return <Redirect to="/signin" />;
     }
-}
+    if (Object.keys(singleProject).length > 0) {
+        return (
+            <div className="container section project-details">
+              <div className="card z-depth-0">
+                <div className="card-content">
+                  <span className="card-title">{singleProject.title}</span>
+                  <p>{singleProject.content}</p>
+                  <div className="row">
+                    <div className="lyrics col s6">
+                      <LyricsBox
+                        id={this.props.match.params.id}
+                      />
+                    </div>
+                    <div className="todo col s6" />
+                  </div>
+                </div>
+                <div className="card-action grey lighten-4 grey-text">
+                  <div className="author">
+                    Posted by {singleProject.firstName} {singleProject.lastName}
+                  </div>
+                  <div className="date">
+                    {moment(singleProject.createdAt.toDate()).calendar()}
+                  </div>
+                  <DeleteProject
+                    history={this.props.history}
+                    id={this.props.match.params.id}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+    } else {
+        return (
+            <div className="container center">
+              <p>Loading project...</p>
+            </div>
+          );
+    }
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const id = ownProps.match.params.id;
-    const projects = state.firestore.data.projects
-    const project = projects ? projects[id] : null;
-    return {
-        project: project,
-        auth: state.firebase.auth
-    }
-}
+  console.log(state, ownProps);
+  // const id = ownProps.match.params.id;
+  // const projects = state.firestore.data.projects
+  // const project = projects ? projects[id] : null;
+  return {
+    singleProject: state.singleProject,
+    auth: state.firebase.auth
+  };
+};
 
-
+const mapDispatchToProps = dispatch => {
+  return {
+    loadProject: id => dispatch(loadProject(id))
+  };
+};
 
 export default compose(
-    firestoreConnect([
-        {collection: "projects"}
-    ]),
-    connect(mapStateToProps)
-)(ProjectDetails)
+  firestoreConnect([{ collection: "projects" }]),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(ProjectDetails);

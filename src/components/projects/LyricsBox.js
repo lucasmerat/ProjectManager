@@ -5,6 +5,9 @@ import { notify } from 'react-notify-toast'
 
 
 class LyricsBox extends Component {
+    componentDidMount(){
+        console.log(this.props.lyrics)
+    }
     state = {
         lyrics: this.props.lyrics
     }
@@ -18,6 +21,7 @@ class LyricsBox extends Component {
         notify.show('Lyrics saved!');
     }
   render() {
+      console.log(this.state)
     return (
         <div className="">
             <h4>Song Lyrics</h4>
@@ -28,10 +32,17 @@ class LyricsBox extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) =>{
+    console.log(state)
+    return {
+        lyrics: state.singleProject.lyrics
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return{
         editLyrics: (id, lyrics) => dispatch(editLyrics(id, lyrics))
     }
 }
 
-export default connect(null, mapDispatchToProps)(LyricsBox)
+export default connect(mapStateToProps, mapDispatchToProps)(LyricsBox)
