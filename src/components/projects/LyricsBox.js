@@ -18,15 +18,14 @@ class LyricsBox extends Component {
         notify.show('Lyrics saved!');
     }
     componentDidUpdate(){
-        console.log('we had an update', this.props)
-        
+        console.log('we had an update', this.state)
     }
   render() {
     return (
         <div className="">
             <h4>Song Lyrics</h4>
             <textarea id="lyrics" onChange={this.handleChange} value={this.state.lyrics}></textarea>
-            <button onClick={this.handleClick}>Save</button>
+            <button className ="btn pink lighten-1" onClick={this.handleClick}>Save</button>
         </div>
     )
   }

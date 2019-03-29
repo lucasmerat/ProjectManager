@@ -14,10 +14,17 @@ class DeleteProject extends Component {
     }
 }
 
+const mapStateToProps = (state) =>{
+    return{
+        auth:state.firebase.auth,
+        profile: state.firebase.profile
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return{
         deleteProject: (id) => dispatch(deleteProject(id))
     }
 }
 
-export default connect(null, mapDispatchToProps)(DeleteProject)
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteProject)

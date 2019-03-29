@@ -7,6 +7,12 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 
 class Dashboard extends Component {
+    // componentDidMount() {
+    //     this.props.firestore.setListener({collection: 'projects'})
+    // }
+    // componentWillUnmount() {
+    //     this.props.firestore.unsetListener({collection: 'projects'})
+    // }
   render() {
     console.log(this.props.projects);
     const { projects, auth } = this.props;
@@ -30,6 +36,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(state.firestore)
   return {
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth

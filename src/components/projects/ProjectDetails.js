@@ -9,8 +9,8 @@ import DeleteProject from './DeleteProject'
 
 class ProjectDetails extends Component {
     render(){
-        const {project, auth} = this.props;   
-
+        const {project, auth} = this.props;
+        console.log(project)
       if(!auth.uid) {
         return(
             <Redirect to="/signin" />
@@ -25,8 +25,14 @@ class ProjectDetails extends Component {
                     {project.title}
                 </span>
                 <p>{project.content}</p>
+                <div className="row">
+                    <div className="lyrics col s6">
+                        <LyricsBox id={this.props.match.params.id} lyrics={this.props.project.lyrics}/>
+                    </div>
+                    <div className="todo col s6">
 
-                <LyricsBox id={this.props.match.params.id} lyrics={this.props.project.lyrics}/>
+                    </div>
+                </div>
 
             </div>
             <div className="card-action grey lighten-4 grey-text">
@@ -51,7 +57,6 @@ const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
     const projects = state.firestore.data.projects
     const project = projects ? projects[id] : null;
-    console.log(project)
     return {
         project: project,
         auth: state.firebase.auth
