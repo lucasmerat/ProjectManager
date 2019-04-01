@@ -80,6 +80,27 @@ export const deleteProject = id => {
   };
 };
 
+export const loadLyrics = (id) =>{
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore()
+
+    firestore.collection("projects")
+    .get()
+    .then((data)=>{
+      let project;
+      data.forEach((doc)=>{
+        console.log(doc.id)
+        if(doc.id === id){
+          // console.log(doc.data())
+          project = doc.data()
+        }
+      })
+      dispatch({ type: "LOAD_LYRICS", project });
+    })
+
+  }
+}
+
 export const editLyrics = (id, lyrics) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
@@ -102,5 +123,4 @@ export const editLyrics = (id, lyrics) => {
       });
   };
 };
-
 //here we return a function rather than an object

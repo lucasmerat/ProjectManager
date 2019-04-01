@@ -5,54 +5,41 @@ import { notify } from 'react-notify-toast'
 
 
 class LyricsBox extends Component {
-    // static getDerivedStateFromProps(nextProps, prevState){
-    //     console.log(nextProps, prevState)
-    //     if(prevState.lyrics !== nextProps.lyrics){
-    //         return {
-    //             lyrics: nextProps.theLyrics
-    //         }
-    //     }
-    //     return null
-    //  }
     state = {
-        lyrics: this.props.propLyrics,
-        isInEditMode: false
+        init:"init state"
     }
-    shouldComponentUpdate(nextProps){
-        console.log(nextProps, this.state)
-        if(nextProps.propLyrics !== this.state.lyrics){
-            this.setState({
-                lyrics: nextProps.propLyrics,
-                isInEditMode: false
-            })
-           return false
-        } else{
-           return true
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log(nextProps, prevState)
+        if (nextProps.singleProject.lyrics !== prevState.lyrics && !prevState.wasJustEdited) {
+            console.log("Lyrics of state and props are different, updating lyrics")
+          return {
+            lyrics: nextProps.singleProject.lyrics,
+            isInEditMode: false
+          };
         }
-    }
+        // No state update necessary
+        return null;
+      }
     handleEdit = (e) =>{
         this.setState({
-            lyrics: this.state.lyrics,
-            isInEditMode: !this.state.isInEditMode
+            ...this.state,
+            isInEditMode: true
         })
     }
     handleSave = (e) =>{
         console.log(this.refs.theTextInput.value)
         this.setState({
-            lyrics: this.refs.theTextInput.value
+            lyrics: this.refs.theTextInput.value,
+            isInEditMode: false,
+            wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
         }, ()=>{
             console.log(this.state)
             this.props.editLyrics(this.props.id, this.state.lyrics);
-            this.setState({
-                ...this.state,
-                isInEditMode: false
-            })
             notify.show('Lyrics saved!');
         });
         
     }
   render() {
-      console.log(this.state)
       return this.state.isInEditMode ? 
         <div>
       <input type= "text" id="lyrics" defaultValue={this.state.lyrics} ref="theTextInput"/>
@@ -64,12 +51,12 @@ class LyricsBox extends Component {
   }
 }
 
-// const mapStateToProps = (state) =>{
-//     console.log(state)
-//     return {
-//         lyrics: state.singleProject.lyrics
-//     }
-// }
+const mapStateToProps = (state, ownProps) =>{
+    console.log(state)
+    return{
+        singleProject: state.singleProject
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return{
@@ -77,4 +64,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LyricsBox)
+export default connect(mapStateToProps, mapDispatchToProps)(LyricsBox)
