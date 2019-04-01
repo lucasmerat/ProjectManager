@@ -89,7 +89,7 @@ export const editLyrics = (id, lyrics) => {
       .doc(id)
       .set(
         {
-          ...lyrics,
+          lyrics,
           updatedAt: new Date()
         },
         { merge: true }

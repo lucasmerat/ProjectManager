@@ -14,7 +14,6 @@ class Dashboard extends Component {
     }
   render() {
     const { projects, auth } = this.props;
-    console.log(projects)
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     } else {
@@ -35,7 +34,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state)
   return {
     projects: state.project,
     auth: state.firebase.auth

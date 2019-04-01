@@ -8,9 +8,8 @@ const singleProjectReducer = (state = initState ,action) =>{
             console.log("Loading single project", action,state)
             return action.project
         case 'UPDATE_LYRICS':
-            console.log(state, action)
-            state.lyrics = action.lyrics.lyrics
-            console.log(state)
+            console.log(action)
+            state.lyrics = action.lyrics
             console.log('Updated lyrics!', action, state);
             return state;
         case 'UPDATE_LYRICS_ERROR': 

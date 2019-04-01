@@ -12,10 +12,14 @@ class ProjectDetails extends Component {
   componentDidMount() {
     this.props.loadProject(this.props.match.params.id);
     console.log("Component mounted");
+    console.log(this.props.singleProject)
+    this.setState({
+        state:"A change"
+    })
   }
   render() {
     const { singleProject, auth } = this.props;
-    console.log(Object.keys(singleProject).length)
+    console.log(singleProject.lyrics)
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
@@ -28,7 +32,7 @@ class ProjectDetails extends Component {
                   <p>{singleProject.content}</p>
                   <div className="row">
                     <div className="lyrics col s6">
-                      <LyricsBox
+                      <LyricsBox propLyrics = {singleProject.lyrics}
                         id={this.props.match.params.id}
                       />
                     </div>
@@ -62,9 +66,6 @@ class ProjectDetails extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   console.log(state, ownProps);
-  // const id = ownProps.match.params.id;
-  // const projects = state.firestore.data.projects
-  // const project = projects ? projects[id] : null;
   return {
     singleProject: state.singleProject,
     auth: state.firebase.auth
