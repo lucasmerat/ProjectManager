@@ -8,6 +8,7 @@ class LyricsBox extends Component {
     state = {
         init:"init state"
     }
+    // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log(nextProps, prevState)
         if (nextProps.singleProject.lyrics !== prevState.lyrics && !prevState.wasJustEdited) {
@@ -17,7 +18,7 @@ class LyricsBox extends Component {
             isInEditMode: false
           };
         }
-        // No state update necessary
+        // No state update necessary, no change in lyrics
         return null;
       }
     handleEdit = (e) =>{
@@ -34,12 +35,13 @@ class LyricsBox extends Component {
             wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
         }, ()=>{
             console.log(this.state)
-            this.props.editLyrics(this.props.id, this.state.lyrics);
+            this.props.editLyrics(this.props.id, this.state.lyrics); //Sends lyrics off to firebase to be saved
             notify.show('Lyrics saved!');
         });
         
     }
   render() {
+      //If we are editing the content, user sees the inpuit field. Otherwise, they see the lyrics
       return this.state.isInEditMode ? 
         <div>
       <input type= "text" id="lyrics" defaultValue={this.state.lyrics} ref="theTextInput"/>
