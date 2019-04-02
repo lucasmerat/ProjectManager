@@ -48,7 +48,7 @@ class AudioRecorder extends Component {
         <button onClick={this.stopRecording} type="button">Stop</button>
         <div id="recordings">
             <ul>
-                <li>Recording 1</li>
+                <a href={this.props.recordings[0][1]}><li>Recording 1</li></a>
                 <li>Recording 2</li>
                 <li>Recording 3</li>
             </ul>
@@ -58,10 +58,17 @@ class AudioRecorder extends Component {
   }
 }
 
+const mapStateToProps = (state) =>{
+    let arr = Object.entries(state.singleProject.recordings)
+    return{
+        recordings: arr
+    }
+}
+
 const mapDispatchToProps = (dispatch) =>{
     return{
         saveRecording: (id, recording) => dispatch(saveRecording(id, recording))
     }
 }
 
-export default connect(null, mapDispatchToProps)(AudioRecorder)
+export default connect(mapStateToProps, mapDispatchToProps)(AudioRecorder)
