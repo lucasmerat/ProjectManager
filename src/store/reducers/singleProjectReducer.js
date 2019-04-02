@@ -16,6 +16,12 @@ const singleProjectReducer = (state = initState ,action) =>{
         case 'UPDATE_LYRICS_ERROR': 
             console.log('Error Updating lyrics', action.err);
             return state;
+        case 'SAVE_RECORDING':
+            console.log('Saved recording', action,state)
+            return state;
+        case 'SAVE_RECORDING_ERROR':
+            console.log('Error saving recording', action,state)
+            return action.err;
         default: 
             return state;
     }

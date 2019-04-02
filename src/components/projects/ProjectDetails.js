@@ -5,6 +5,7 @@ import { compose } from "redux"; //Combines higher order components
 import { Redirect } from "react-router-dom";
 import moment from "moment";
 import LyricsBox from "./LyricsBox";
+import AudioRecorder from "./AudioRecorder"
 import DeleteProject from "./DeleteProject";
 import { loadProject } from "../../store/actions/projectActions";
 
@@ -20,7 +21,7 @@ class ProjectDetails extends Component {
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
-    if (this.props.match.params.id === this.props.singleProject.id) {
+    if (this.props.match.params.id === this.props.singleProject.id) { // Waits until correct project has been loaded to display page
         return (
             <div className="container section project-details">
               <div className="card z-depth-0">
@@ -34,6 +35,7 @@ class ProjectDetails extends Component {
                       />
                     </div>
                     <div className="todo col s6" />
+                        <AudioRecorder id={this.props.match.params.id}/>
                   </div>
                 </div>
                 <div className="card-action grey lighten-4 grey-text">

@@ -5,8 +5,11 @@ import { notify } from 'react-notify-toast'
 
 
 class LyricsBox extends Component {
-    state = {
-        init:"init state"
+    constructor(props){
+        super(props)
+        this.state= {
+            lyrics: ""
+        }
     }
     // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -28,13 +31,11 @@ class LyricsBox extends Component {
         })
     }
     handleSave = (e) =>{
-        console.log(this.refs.theTextInput.value)
         this.setState({
             lyrics: this.refs.theTextInput.value,
             isInEditMode: false,
             wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
         }, ()=>{
-            console.log(this.state)
             this.props.editLyrics(this.props.id, this.state.lyrics); //Sends lyrics off to firebase to be saved
             notify.show('Lyrics saved!');
         });
@@ -43,18 +44,24 @@ class LyricsBox extends Component {
   render() {
       //If we are editing the content, user sees the inpuit field. Otherwise, they see the lyrics
       return this.state.isInEditMode ? 
-        <div>
-      <input type= "text" id="lyrics" defaultValue={this.state.lyrics} ref="theTextInput"/>
-      <button className ="btn pink lighten-1" onClick={this.handleSave}>Save</button>
-      </div> : <div>
-          <h1>{this.state.lyrics}</h1>
-          <button className ="btn pink lighten-1" onClick={this.handleEdit}>Edit</button>
+        <div className="card">
+                <div className="card-content">
+                  <span className="card-title">Lyrics</span>
+        <textarea type= "text" id="lyrics" defaultValue={this.state.lyrics} ref="theTextInput"/>
+        <button className ="btn pink lighten-1" onClick={this.handleSave}>Save</button>
+        </div>
+      </div> : 
+      <div className="card">
+                <div className="card-content">
+                  <span className="card-title">Lyrics</span>
+                  <p>"{this.state.lyrics}"</p>
+                  <button className ="btn pink lighten-1" onClick={this.handleEdit}>Edit</button>
+                </div>
       </div>  
   }
 }
 
-const mapStateToProps = (state, ownProps) =>{
-    console.log(state)
+const mapStateToProps = (state) =>{
     return{
         singleProject: state.singleProject
     }

@@ -50,7 +50,8 @@ export const createProject = project => {
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
         authorId: authorId, 
-        createdAt: new Date()
+        createdAt: new Date(),
+        recordings: {}
       })
       .then(() => {
         dispatch({ type: "CREATE_PROJECT", project });
@@ -102,4 +103,20 @@ export const editLyrics = (id, lyrics) => {
       });
   };
 };
-//here we return a function rather than an object
+
+export const saveRecording = (id, recording) =>{
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    let random = Math.random();
+    firestore.collection("projects").doc(id).set({
+      recordings:{ 
+        [new Date()]:recording
+      }
+    },
+    { merge: true }).then(()=>{
+      dispatch({type:"SAVE_RECORDING", recording})
+    }).catch(err => {
+      dispatch({ type: "SAVE_RECORDING_ERROR", err });
+    });
+  }
+}
