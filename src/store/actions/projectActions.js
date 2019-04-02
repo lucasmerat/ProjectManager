@@ -31,7 +31,7 @@ export const loadProject = (id) =>{
           project = doc.data()
         }
       })
-      dispatch({ type: "LOAD_PROJECT", project });
+      dispatch({ type: "LOAD_PROJECT", project, id });
     })
   }
 }

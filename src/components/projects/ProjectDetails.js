@@ -20,7 +20,7 @@ class ProjectDetails extends Component {
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
-    if (Object.keys(singleProject).length > 0) {
+    if (this.props.match.params.id === this.props.singleProject.id) {
         return (
             <div className="container section project-details">
               <div className="card z-depth-0">
@@ -62,7 +62,6 @@ class ProjectDetails extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-//   console.log(state, ownProps);
   return {
     singleProject: state.singleProject,
     auth: state.firebase.auth
