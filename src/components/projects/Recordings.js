@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
+import moment from "moment";
 
-
-// eslint-disable-next-line react/require-render-return
-const Recordings = (props) =>{
-      return(
-          <div className="section">
-              {props.recordings.map(recording=>{
-                return (
-                    <audio key={Math.random()} src={recording[1]} controls="controls"></audio>
-                )
-                })
-              }
+const Recordings = props => {
+  return (
+    <div className="section">
+      {props.recordings.map(recording => {
+        return (
+          <div key={Math.random()}>
+            <audio src={recording[1]} controls="controls" />
+            <p>{moment(recording[0]).calendar()}</p>
           </div>
-      )
-      
-}
+        );
+      })}
+    </div>
+  );
+};
 
-export default Recordings
+export default Recordings;

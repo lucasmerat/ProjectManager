@@ -110,7 +110,7 @@ export const saveRecording = (id, recording) =>{
     let random = Math.random();
     firestore.collection("projects").doc(id).set({
       recordings:{ 
-        [new Date()]:recording
+        [new Date().toISOString()]:recording
       }
     },
     { merge: true }).then(()=>{
