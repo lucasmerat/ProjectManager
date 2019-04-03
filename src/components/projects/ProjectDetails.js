@@ -22,6 +22,7 @@ class ProjectDetails extends Component {
     if (!auth.uid) {
       return <Redirect to="/signin" />;
     }
+    console.log(this.props.singleProject)
     if (this.props.match.params.id === this.props.singleProject.id) { // Waits until correct project has been loaded to display page
         return (
             <div className="container section project-details">

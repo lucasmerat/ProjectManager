@@ -107,14 +107,13 @@ export const editLyrics = (id, lyrics) => {
 export const saveRecording = (id, recording) =>{
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    let random = Math.random();
+    let recordings = {[new Date().toISOString()]:recording}
+    console.log(recordings)
     firestore.collection("projects").doc(id).set({
-      recordings:{ 
-        [new Date().toISOString()]:recording
-      }
+      recordings:recordings
     },
     { merge: true }).then(()=>{
-      dispatch({type:"SAVE_RECORDING", recording})
+      dispatch({type:"SAVE_RECORDING", recordings})
     }).catch(err => {
       dispatch({ type: "SAVE_RECORDING_ERROR", err });
     });

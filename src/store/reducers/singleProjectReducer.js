@@ -17,7 +17,10 @@ const singleProjectReducer = (state = initState ,action) =>{
             console.log('Error Updating lyrics', action.err);
             return state;
         case 'SAVE_RECORDING':
-            console.log('Saved recording', action,state)
+            console.log('Saved recording', action, state)
+            let date = Object.keys(action.recordings);
+            let recording = Object.values(action.recordings)
+            state.recordings[date] = recording[0];
             return state;
         case 'SAVE_RECORDING_ERROR':
             console.log('Error saving recording', action,state)
