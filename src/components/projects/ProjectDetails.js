@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import moment from "moment";
 import LyricsBox from "./LyricsBox";
 import AudioRecorder from "./AudioRecorder"
+import Chords from "./Chords"
 import DeleteProject from "./DeleteProject";
 import { loadProject } from "../../store/actions/projectActions";
 
@@ -34,9 +35,15 @@ class ProjectDetails extends Component {
                         id={this.props.match.params.id}
                       />
                     </div>
-                    <div className="todo col s6" />
+                    <div className="todo col s6">
                         <AudioRecorder id={this.props.match.params.id}/>
+                        </div>
                   </div>
+                <div className="row">
+                    <div className="col s6">
+                        <Chords />
+                    </div>
+                </div>
                 </div>
                 <div className="card-action grey lighten-4 grey-text">
                   <div className="author">
