@@ -1,6 +1,7 @@
 // TO MAKE THIS CLEANER, ADD COMPONENT TO STORE RECORDINGS AND RENDER THAT CONDITIONALLY
 
 import React, { Component } from "react";
+import Recordings from "./Recordings"
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux"; //connects the component to store
 import { saveRecording } from "../../store/actions/projectActions";
@@ -32,7 +33,7 @@ class AudioRecorder extends Component {
 
   onStop(recordedBlob) {
     console.log("recordedBlob is: ", recordedBlob);
-    
+
     function blobToDataURL(blob, props, callback) {
       var a = new FileReader();
       a.onload = function(e) {
@@ -67,13 +68,7 @@ class AudioRecorder extends Component {
             Stop
           </button>
           <div id="recordings">
-            <ul>
-              <a href={this.props.recordings[0][1]}>
-                <li>Recording 1</li>
-              </a>
-              <li>Recording 2</li>
-              <li>Recording 3</li>
-            </ul>
+            <Recordings recordings={this.props.recordings}/>
           </div>
         </div>
       );
