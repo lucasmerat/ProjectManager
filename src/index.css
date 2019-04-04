@@ -32,3 +32,9 @@ form button, form h5 {
 #lyrics{
   height:200px;
 }
+
+canvas {
+  width: 100%;
+  height: 174px;
+  border-radius: 5px;
+}

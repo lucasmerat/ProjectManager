@@ -43,8 +43,6 @@ class AudioRecorder extends Component {
     }
 
     blobToDataURL(recordedBlob.blob, this.props, function(dataurl, props) {
-      console.log(props)
-      console.log(dataurl);
       props.saveRecording(props.id, dataurl);
     });
   }
@@ -52,7 +50,9 @@ class AudioRecorder extends Component {
   render() {
     if (this.props.recordings.length > 0) {
       return (
-        <div>
+        <div className="card">
+        <div className="card-content">
+          <span className="card-title">Recorder</span>
           <ReactMic
             record={this.state.record}
             className="sound-wave"
@@ -69,6 +69,7 @@ class AudioRecorder extends Component {
           </button>
           <div id="recordings">
             <Recordings recordings={this.props.recordings}/>
+          </div>
           </div>
         </div>
       );
@@ -97,7 +98,6 @@ class AudioRecorder extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   if (state.singleProject.recordings) {
     let arr = Object.entries(state.singleProject.recordings);
     return {
