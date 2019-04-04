@@ -47,7 +47,6 @@ class LyricsBox extends Component {
     );
   };
   render() {
-    console.log(this.props.singleProject.updatedAt.seconds);
     //If we are editing the content, user sees the inpuit field. Otherwise, they see the lyrics
     return this.state.isInEditMode ? (
       <div className="card">
@@ -59,7 +58,8 @@ class LyricsBox extends Component {
             defaultValue={this.state.lyrics}
             ref="theTextInput"
           />
-          <p>{this.props.singleProject.updatedAt.seconds}</p>
+          {/* Need to add conditional rendering of this field */}
+          {/* <p>{this.props.singleProject.updatedAt.seconds}</p> */}
           <button className="btn pink lighten-1" onClick={this.handleSave}>
             Save
           </button>
@@ -75,7 +75,7 @@ class LyricsBox extends Component {
           </button>
           <p>
             Last updated{" "}
-            {moment.unix(this.props.singleProject.updatedAt.seconds).calendar()}
+            {/* {moment.unix(this.props.singleProject.updatedAt.seconds).calendar()} */}
           </p>
         </div>
       </div>

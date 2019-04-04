@@ -25,6 +25,12 @@ const singleProjectReducer = (state = initState ,action) =>{
         case 'SAVE_RECORDING_ERROR':
             console.log('Error saving recording', action,state)
             return action.err;
+        case 'SAVE_TODO':
+            console.log('Saved todo', action, state)
+            return state;
+        case 'SAVE_TODO_ERROR':
+            console.log('Error saving todo', action,state)
+            return action.err;
         default: 
             return state;
     }

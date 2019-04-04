@@ -51,7 +51,8 @@ export const createProject = project => {
         authorLastName: profile.lastName,
         authorId: authorId, 
         createdAt: new Date(),
-        recordings: {}
+        recordings: {},
+        todos: []
       })
       .then(() => {
         dispatch({ type: "CREATE_PROJECT", project });
@@ -116,6 +117,22 @@ export const saveRecording = (id, recording) =>{
       dispatch({type:"SAVE_RECORDING", recordings})
     }).catch(err => {
       dispatch({ type: "SAVE_RECORDING_ERROR", err });
+    });
+  }
+}
+
+export const pushTodo = (id, todos) =>{
+  console.log(...todos)
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore.collection("projects").doc(id).set({
+      todos
+    },
+    { merge: true }).then(()=>{
+      dispatch({type:"SAVE_TODO", todos})
+    }).catch(err => {
+      dispatch({ type: "SAVE_TODO_ERROR", err });
     });
   }
 }

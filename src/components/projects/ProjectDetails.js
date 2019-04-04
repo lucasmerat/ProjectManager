@@ -7,6 +7,7 @@ import moment from "moment";
 import LyricsBox from "./LyricsBox";
 import AudioRecorder from "./AudioRecorder"
 import Chords from "./Chords"
+import Todos from "./Todos"
 import DeleteProject from "./DeleteProject";
 import { loadProject } from "../../store/actions/projectActions";
 
@@ -43,6 +44,9 @@ class ProjectDetails extends Component {
                 <div className="row">
                     <div className="col s6">
                         <Chords />
+                    </div>
+                    <div className="col s6">
+                        <Todos id={this.props.match.params.id}/>
                     </div>
                 </div>
                 </div>
