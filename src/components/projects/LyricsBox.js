@@ -55,7 +55,7 @@ class LyricsBox extends Component {
           <textarea
             type="text"
             id="lyrics"
-            defaultValue={this.state.lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
+            defaultValue={this.state.lyrics && this.state.lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
             ref="theTextInput"
           />
           <button className="btn pink lighten-1" onClick={this.handleSave}>
