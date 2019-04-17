@@ -73,10 +73,6 @@ class LyricsBox extends Component {
           <button className="btn pink lighten-1" onClick={this.handleEdit}>
             Edit
           </button>
-          <p>
-            Last updated{" "}
-            {/* {moment.unix(this.props.singleProject.updatedAt.seconds).calendar()} */}
-          </p>
         </div>
       </div>
     );

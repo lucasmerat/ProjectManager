@@ -52,10 +52,10 @@ class ProjectDetails extends Component {
                 </div>
                 <div className="card-action grey lighten-4 grey-text">
                   <div className="author">
-                    Posted by {singleProject.firstName} {singleProject.lastName}
+                    Written by {singleProject.authorFirstName} {singleProject.authorLastName}
                   </div>
                   <div className="date">
-                    {moment(singleProject.createdAt.toDate()).calendar()}
+                    Last updated {moment(singleProject.updatedAt.toDate()).calendar()}
                   </div>
                   <DeleteProject
                     history={this.props.history}

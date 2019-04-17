@@ -50,7 +50,7 @@ export const createProject = project => {
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
         authorId: authorId, 
-        createdAt: new Date(),
+        updatedAt: new Date(),
         recordings: {},
         todos: []
       })
