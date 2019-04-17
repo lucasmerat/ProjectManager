@@ -13,7 +13,6 @@ class LyricsBox extends Component {
   }
   // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps, prevState);
     if (
       nextProps.singleProject.lyrics !== prevState.lyrics &&
       !prevState.wasJustEdited
@@ -34,9 +33,10 @@ class LyricsBox extends Component {
     });
   };
   handleSave = e => {
+    let lyricsWithLineBreaks = this.refs.theTextInput.value.replace(/\n\r?/g, '<br />');
     this.setState(
       {
-        lyrics: this.refs.theTextInput.value,
+        lyrics: lyricsWithLineBreaks,
         isInEditMode: false,
         wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
       },
@@ -55,11 +55,9 @@ class LyricsBox extends Component {
           <textarea
             type="text"
             id="lyrics"
-            defaultValue={this.state.lyrics}
+            defaultValue={this.state.lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
             ref="theTextInput"
           />
-          {/* Need to add conditional rendering of this field */}
-          {/* <p>{this.props.singleProject.updatedAt.seconds}</p> */}
           <button className="btn pink lighten-1" onClick={this.handleSave}>
             Save
           </button>
@@ -69,7 +67,7 @@ class LyricsBox extends Component {
       <div className="card">
         <div className="card-content">
           <span className="card-title">Lyrics</span>
-          <p>"{this.state.lyrics}"</p>
+          <p dangerouslySetInnerHTML={{ __html: this.state.lyrics }}></p>
           <button className="btn pink lighten-1" onClick={this.handleEdit}>
             Edit
           </button>

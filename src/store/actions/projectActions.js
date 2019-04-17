@@ -85,6 +85,7 @@ export const deleteProject = id => {
 export const editLyrics = (id, lyrics) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    console.log(lyrics)
 
     firestore
       .collection("projects")
