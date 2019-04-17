@@ -111,7 +111,8 @@ export const saveRecording = (id, recording) =>{
     let recordings = {[new Date().toISOString()]:recording}
     console.log(recordings)
     firestore.collection("projects").doc(id).set({
-      recordings:recordings
+      recordings:recordings,
+      updatedAt: new Date()
     },
     { merge: true }).then(()=>{
       dispatch({type:"SAVE_RECORDING", recordings})

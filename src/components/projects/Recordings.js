@@ -1,10 +1,11 @@
 import React from "react";
 import moment from "moment";
 
-const Recordings = props => {
+const Recordings = ({recordings}) => {
+  let reversedRecordings = [...recordings].reverse();
   return (
     <div className="section">
-      {props.recordings.map(recording => {
+      {reversedRecordings.map(recording => {
         return (
           <div key={Math.random()}>
             <audio src={recording[1]} controls="controls" />
