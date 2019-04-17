@@ -1,6 +1,5 @@
 
 export const loadProjects = () => {
-    console.log('loading projects')
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         firestore
@@ -85,7 +84,6 @@ export const deleteProject = id => {
 export const editLyrics = (id, lyrics) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    console.log(lyrics)
 
     firestore
       .collection("projects")
