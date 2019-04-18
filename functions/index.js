@@ -24,6 +24,7 @@ exports.songCreated = functions.firestore
       content: `Started writing ${project.title}`,
       time: admin.firestore.FieldValue.serverTimestamp()
     };
+    console.log("New song was added, sending notification", notification)
     return createNotification(notification);
   });
 
@@ -39,6 +40,7 @@ exports.songCreated = functions.firestore
             content: `Edited lyrics of ${newValue.title}`,
             time: admin.firestore.FieldValue.serverTimestamp()
           };
+          console.log("Lyrics changed, sending notification", notification)
           return createNotification(notification);
     }
 
@@ -47,6 +49,7 @@ exports.songCreated = functions.firestore
             content: `Added recording to ${newValue.title}`,
             time: admin.firestore.FieldValue.serverTimestamp()
           };
+          console.log("Recording added, sending notification", notification)
           return createNotification(notification);
     }
   });
