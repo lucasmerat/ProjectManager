@@ -7,7 +7,7 @@ import { firebaseReducer } from 'react-redux-firebase' // Syncs auth status with
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    project: projectReducer,
+    projects: projectReducer,
     singleProject: singleProjectReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer
