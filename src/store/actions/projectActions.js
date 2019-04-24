@@ -21,7 +21,8 @@ export const loadProject = (id) =>{
   console.log('loading single project')
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore()
-    firestore.collection("projects")
+    const authorId = getState().firebase.auth.uid;
+    firestore.collection("projects").where("authorId", "==", authorId)
     .get()
     .then((data)=>{
       let project;
