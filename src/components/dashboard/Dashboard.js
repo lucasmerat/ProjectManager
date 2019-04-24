@@ -49,13 +49,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(
-  firestoreConnect([
-    { collection: "notifications", limit:10, orderBy: ['time', 'desc'] }
-  ]),
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  firestoreConnect(props => [
+    { collection: "notifications", where: ["createdBy","==", props.auth.uid], limit:10, orderBy: ['time', 'desc'] }
+  ])
 )(Dashboard);
 
 //The way we are going to work with external data being asynchronous, is once there is a dispatched action, we pull data, and then poush the data to the recucer once we have that data

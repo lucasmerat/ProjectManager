@@ -1,10 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-admin.initializeApp(functions.config().firebase);
-
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
+admin.initializeApp();
 
 const createNotification = notification => {
   return admin
@@ -16,17 +12,18 @@ const createNotification = notification => {
     });
 };
 
-exports.songCreated = functions.firestore
-  .document("projects/{projectId}")
-  .onCreate(doc => {
-    const project = doc.data();
-    const notification = {
-      content: `Started writing ${project.title}`,
-      time: admin.firestore.FieldValue.serverTimestamp()
-    };
-    console.log("New song was added, sending notification", notification)
-    return createNotification(notification);
-  });
+// exports.songCreated = functions.firestore
+//   .document("projects/{projectId}")
+//   .onCreate(doc => {
+//     console.log(admin.firestore)
+//     const project = doc.data();
+//     const notification = {
+//       content: `Started writing ${project.title}`,
+//       time: admin.firestore.FieldValue.serverTimestamp()
+//     };
+//     console.log("New song was added, sending notification", notification)
+//     return createNotification(notification);
+//   });
 
   exports.projectEdited = functions.firestore
   .document("projects/{projectId}")

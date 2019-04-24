@@ -55,7 +55,14 @@ export const createProject = project => {
         todos: []
       })
       .then(() => {
-        dispatch({ type: "CREATE_PROJECT", project });
+        console.log(project)
+        firestore.collection('notifications').add({
+          content: `Started writing ${project.title}`, 
+          time: new Date(), 
+          createdBy: authorId
+        }).then(()=>{
+          dispatch({ type: "CREATE_PROJECT", project });
+        })
       })
       .catch(err => {
         dispatch({ type: "CREATE_PROJECT_ERROR", err });
