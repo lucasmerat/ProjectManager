@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import PrivateRoute from './components/auth/PrivateRoute'
 import NavBar from './components/layout/Navbar'
 import Dashboard from './components/dashboard/Dashboard'
 import ProjectDetails from './components/projects/ProjectDetails';
@@ -17,11 +18,11 @@ class App extends Component {
           <Notifications />
           <NavBar />
           <Switch>
-            <Route exact path='/' component={Dashboard}></Route>
-            <Route path='/project/:id' component={ProjectDetails}></Route>
+            <PrivateRoute exact path='/' component={Dashboard}></PrivateRoute>
+            <PrivateRoute path='/project/:id' component={ProjectDetails}></PrivateRoute>
             <Route path='/signin' component={SignIn}></Route>
             <Route path='/signup' component={SignUp}></Route>
-            <Route path='/createproject' component={CreateProject}></Route>
+            <PrivateRoute path='/createproject' component={CreateProject}></PrivateRoute>
           </Switch>
         </div>
       </BrowserRouter>

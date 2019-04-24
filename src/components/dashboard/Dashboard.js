@@ -10,13 +10,11 @@ import { loadProjects } from "../../store/actions/projectActions";
 class Dashboard extends Component {
   componentDidMount() {
     console.log("loading projects");
+    console.log(this.props.auth);
     this.props.loadProjects();
   }
   render() {
-    const { projects, auth, notifications } = this.props;
-    if (!auth.uid) {
-      return <Redirect to="/signin" />;
-    } else {
+    const { projects, notifications } = this.props;
       return (
         <div className="dashboard container">
           <div className="row">
@@ -31,14 +29,13 @@ class Dashboard extends Component {
       );
     }
   }
-}
 
 const mapStateToProps = (state, ownProps) => {
   console.log(state);
   return {
     projects: state.projects,
     auth: state.firebase.auth,
-    notifications:state.firestore.ordered.notifications
+    notifications: state.firestore.ordered.notifications
   };
 };
 
@@ -53,9 +50,21 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  firestoreConnect(props => [
-    { collection: "notifications", where: ["createdBy","==", props.auth.uid], limit:10, orderBy: ['time', 'desc'] }
-  ])
+  firestoreConnect(props => {
+    console.log(props);
+    if (props.auth.uid) {
+      return [
+        {
+          collection: "notifications",
+          where: ["createdBy", "==", props.auth.uid],
+          limit: 10,
+          orderBy: ["time", "desc"]
+        }
+      ];
+    } else {
+      return <Redirect to="/signin" />;
+    }
+  })
 )(Dashboard);
 
 //The way we are going to work with external data being asynchronous, is once there is a dispatched action, we pull data, and then poush the data to the recucer once we have that data

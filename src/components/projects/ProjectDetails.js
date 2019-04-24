@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
-import { Redirect } from "react-router-dom";
 import moment from "moment";
 import LyricsBox from "./LyricsBox";
 import AudioRecorder from "./AudioRecorder"
@@ -17,11 +16,7 @@ class ProjectDetails extends Component {
     })
   }
   render() {
-    const { singleProject, auth } = this.props;
-    if (!auth.uid) {
-      return <Redirect to="/signin" />;
-    }
-    console.log(this.props.singleProject)
+    const { singleProject } = this.props;
     if (this.props.match.params.id === this.props.singleProject.id) { // Waits until correct project has been loaded to display page
         return (
             <div className="container section project-details">
