@@ -50,7 +50,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   firestoreConnect([
-    { collection: "projects" },
     { collection: "notifications", limit:10, orderBy: ['time', 'desc'] }
   ]),
   connect(

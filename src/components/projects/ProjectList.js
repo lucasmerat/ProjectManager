@@ -9,7 +9,7 @@ const ProjectList = ({ projects }) => {
       return b.updatedAt.seconds > a.updatedAt.seconds ? 1 : -1;
     });
   }
-  return (
+  return sortedProjects ? (
     <div className="project-list section">
       {sortedProjects &&
         sortedProjects.map(project => {
@@ -19,6 +19,14 @@ const ProjectList = ({ projects }) => {
             </Link>
           );
         })}
+    </div>
+  ) : (
+    <div className="section">
+      <div className="card z-depth-0">
+        <div className="card-content">
+          <p>No projects added, go ahead and add your first</p>
+        </div>
+      </div>
     </div>
   );
 };

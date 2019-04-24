@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
-import { firestoreConnect } from "react-redux-firebase"; //Brings in firebase database
-import { compose } from "redux"; //Combines higher order components
 import { Redirect } from "react-router-dom";
 import moment from "moment";
 import LyricsBox from "./LyricsBox";
@@ -88,10 +86,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default compose(
-  firestoreConnect([{ collection: "projects" }]),
+export default
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+
 )(ProjectDetails);
