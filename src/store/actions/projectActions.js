@@ -1,9 +1,9 @@
-
 export const loadProjects = () => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const authorId = getState().firebase.auth.uid;
         const firestore = getFirestore();
         firestore
-        .collection("projects")
+        .collection("projects").where("authorId", "==", authorId)
         .get()
         .then((data)=>{
             let projects = [];
