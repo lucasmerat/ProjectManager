@@ -1,40 +1,43 @@
 export const loadProjects = () => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        const authorId = getState().firebase.auth.uid;
-        const firestore = getFirestore();
-        firestore
-        .collection("projects").where("authorId", "==", authorId)
-        .get()
-        .then((data)=>{
-            let projects = [];
-            data.forEach(function(doc){
-                let project = doc.data()
-                project.id = doc.id
-               projects.push(project)
-            })
-            dispatch({ type:"LOAD_PROJECTS", projects})
-        })
-    };
-}
-
-export const loadProject = (id) =>{
-  console.log('loading single project')
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore()
     const authorId = getState().firebase.auth.uid;
-    firestore.collection("projects").where("authorId", "==", authorId)
-    .get()
-    .then((data)=>{
-      let project;
-      data.forEach((doc)=>{
-        if(doc.id === id){
-          project = doc.data()
-        }
-      })
-      dispatch({ type: "LOAD_PROJECT", project, id });
-    })
-  }
-}
+    const firestore = getFirestore();
+    firestore
+      .collection("projects")
+      .where("authorId", "==", authorId)
+      .get()
+      .then(data => {
+        let projects = [];
+        data.forEach(function(doc) {
+          let project = doc.data();
+          project.id = doc.id;
+          projects.push(project);
+        });
+        dispatch({ type: "LOAD_PROJECTS", projects });
+      });
+  };
+};
+
+export const loadProject = id => {
+  console.log("loading single project");
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    const authorId = getState().firebase.auth.uid;
+    firestore
+      .collection("projects")
+      .where("authorId", "==", authorId)
+      .get()
+      .then(data => {
+        let project;
+        data.forEach(doc => {
+          if (doc.id === id) {
+            project = doc.data();
+          }
+        });
+        dispatch({ type: "LOAD_PROJECT", project, id });
+      });
+  };
+};
 
 export const createProject = project => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -49,20 +52,23 @@ export const createProject = project => {
         ...project,
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
-        authorId: authorId, 
+        authorId: authorId,
         updatedAt: new Date(),
         recordings: {},
         todos: []
       })
       .then(() => {
-        console.log(project)
-        firestore.collection('notifications').add({
-          content: `Started writing ${project.title}`, 
-          time: new Date(), 
-          createdBy: authorId
-        }).then(()=>{
-          dispatch({ type: "CREATE_PROJECT", project });
-        })
+        console.log(project);
+        firestore
+          .collection("notifications")
+          .add({
+            content: `Started writing ${project.title}`,
+            time: new Date(),
+            createdBy: authorId
+          })
+          .then(() => {
+            dispatch({ type: "CREATE_PROJECT", project });
+          });
       })
       .catch(err => {
         dispatch({ type: "CREATE_PROJECT_ERROR", err });
@@ -74,13 +80,12 @@ export const deleteProject = id => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
-
     firestore
       .collection("projects")
       .doc(id)
       .delete()
       .then(() => {
-        let projects = getState().firestore.ordered.projects
+        let projects = getState().firestore.ordered.projects;
         dispatch({ type: "DELETE_PROJECT", projects });
       })
       .catch(err => {
@@ -89,7 +94,7 @@ export const deleteProject = id => {
   };
 };
 
-export const editLyrics = (id, lyrics, title) => {
+export const editLyrics = (id, lyrics, projectTitle) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const authorId = getState().firebase.auth.uid;
@@ -105,13 +110,16 @@ export const editLyrics = (id, lyrics, title) => {
         { merge: true }
       )
       .then(() => {
-        firestore.collection('notifications').add({
-          content: `Edited lyrics of ${title}`, 
-          time: new Date(), 
-          createdBy: authorId
-        }).then(()=>{
-        dispatch({ type: "UPDATE_LYRICS", id, lyrics });
-        })
+        firestore
+          .collection("notifications")
+          .add({
+            content: `Edited lyrics of ${projectTitle}`,
+            time: new Date(),
+            createdBy: authorId
+          })
+          .then(() => {
+            dispatch({ type: "UPDATE_LYRICS", id, lyrics });
+          });
       })
       .catch(err => {
         dispatch({ type: "UPDATE_LYRICS_ERROR", err });
@@ -119,35 +127,56 @@ export const editLyrics = (id, lyrics, title) => {
   };
 };
 
-export const saveRecording = (id, recording) =>{
+export const saveRecording = (id, recording, projectTitle) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    let recordings = {[new Date().toISOString()]:recording}
-    console.log(recordings)
-    firestore.collection("projects").doc(id).set({
-      recordings:recordings,
-      updatedAt: new Date()
-    },
-    { merge: true }).then(()=>{
-      dispatch({type:"SAVE_RECORDING", recordings})
-    }).catch(err => {
-      dispatch({ type: "SAVE_RECORDING_ERROR", err });
-    });
-  }
-}
+    const authorId = getState().firebase.auth.uid;
+    let recordings = { [new Date().toISOString()]: recording };
 
-export const pushTodo = (id, todos) =>{
-  console.log(...todos)
+    firestore
+      .collection("projects")
+      .doc(id)
+      .set(
+        {
+          recordings: recordings,
+          updatedAt: new Date()
+        },
+        { merge: true }
+      )
+      .then(() => {
+        firestore.collection('notifications').add({
+          content: `Added recording to ${projectTitle}`, 
+          time: new Date(), 
+          createdBy: authorId
+        }).then(()=>{
+        dispatch({ type: "SAVE_RECORDING", recordings });
+        })
+      })
+      .catch(err => {
+        dispatch({ type: "SAVE_RECORDING_ERROR", err });
+      });
+  };
+};
+
+export const pushTodo = (id, todos) => {
+  console.log(...todos);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
-    firestore.collection("projects").doc(id).set({
-      todos
-    },
-    { merge: true }).then(()=>{
-      dispatch({type:"SAVE_TODO", todos})
-    }).catch(err => {
-      dispatch({ type: "SAVE_TODO_ERROR", err });
-    });
-  }
-}
+    firestore
+      .collection("projects")
+      .doc(id)
+      .set(
+        {
+          todos
+        },
+        { merge: true }
+      )
+      .then(() => {
+        dispatch({ type: "SAVE_TODO", todos });
+      })
+      .catch(err => {
+        dispatch({ type: "SAVE_TODO_ERROR", err });
+      });
+  };
+};

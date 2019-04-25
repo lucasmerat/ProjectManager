@@ -43,7 +43,7 @@ class AudioRecorder extends Component {
     }
 
     blobToDataURL(recordedBlob.blob, this.props, function(dataurl, props) {
-      props.saveRecording(props.id, dataurl);
+      props.saveRecording(props.id, dataurl, props.singleProject.title);
     });
   }
 
@@ -101,14 +101,15 @@ const mapStateToProps = state => {
   if (state.singleProject.recordings) {
     let arr = Object.entries(state.singleProject.recordings);
     return {
-      recordings: arr
+      recordings: arr,
+      singleProject: state.singleProject
     };
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveRecording: (id, recording) => dispatch(saveRecording(id, recording))
+    saveRecording: (id, recording, projectTitle) => dispatch(saveRecording(id, recording, projectTitle))
   };
 };
 

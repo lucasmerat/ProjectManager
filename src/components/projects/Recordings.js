@@ -5,7 +5,7 @@ const Recordings = ({recordings}) => {
   let reversedRecordings = [...recordings].reverse();
   return (
     <div className="section">
-      {reversedRecordings.map(recording => {
+      {reversedRecordings && reversedRecordings.map(recording => {
         return (
           <div key={Math.random()}>
             <audio src={recording[1]} controls="controls" />
