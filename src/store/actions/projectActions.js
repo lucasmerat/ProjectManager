@@ -55,7 +55,7 @@ export const createProject = project => {
         authorId: authorId,
         updatedAt: new Date(),
         recordings: {},
-        todos: []
+        todos: ""
       })
       .then(() => {
         console.log(project);
@@ -158,22 +158,24 @@ export const saveRecording = (id, recording, projectTitle) => {
   };
 };
 
-export const pushTodo = (id, todos) => {
-  console.log(...todos);
+export const pushTodo = (id, todo) => {
+  todo = {text: todo}
+  console.log(todo);
+
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    const firebase = getFirebase();
+    console.log(firebase, firestore)
 
     firestore
       .collection("projects")
       .doc(id)
-      .set(
-        {
-          todos
-        },
-        { merge: true }
+      .update({
+        todos: firebase.firestore.FieldValue.arrayUnion(todo)
+      }
       )
       .then(() => {
-        dispatch({ type: "SAVE_TODO", todos });
+        dispatch({ type: "SAVE_TODO", todo });
       })
       .catch(err => {
         dispatch({ type: "SAVE_TODO_ERROR", err });

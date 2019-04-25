@@ -4,20 +4,22 @@ import TodoForm from './TodoForm'
 import { pushTodo } from '../../store/actions/projectActions'
 import { connect } from "react-redux";
 
-const Todos = (props) =>{
-    const [todos] = useState([
-        props.todos
-    ]);
+const Todos = ({todos, pushTodo, id}) =>{
+    // const [todos, setTodos] = useState([
+    //    {text: "First thing"},
+    //    {text: "second thing"},
+    //    {text: "third thing"},
+
+    // ]);
     const addTodo = (text) =>{
-        const NewTodos = [...todos, { text }];
-        props.pushTodo(props.id, NewTodos)
-        // setTodos(NewTodos);
+        pushTodo(id, text)
+        // setTodos(newTodos);
     }
 
     return(
         <div className="todos">
             <div className="todo-list">
-                {todos.map((todo, index)=>(
+                {todos && todos.map((todo, index)=>(
                     <Todo key={index} index={index} todo={todo}/>
                 ))}
                 <TodoForm addTodo={addTodo}/>
@@ -27,7 +29,6 @@ const Todos = (props) =>{
 }
 
 const mapStateToProps = (state) =>{
-    console.log(state)
     return{
         todos: state.singleProject.todos
     }

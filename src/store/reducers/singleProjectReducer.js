@@ -10,7 +10,7 @@ const singleProjectReducer = (state = initState ,action) =>{
             return action.project
         case 'UPDATE_LYRICS':
             console.log(action)
-            state.lyrics = action.lyrics
+            state.lyrics = action.lyrics;
             console.log('Updated lyrics!', action, state);
             return state;
         case 'UPDATE_LYRICS_ERROR': 
@@ -27,6 +27,7 @@ const singleProjectReducer = (state = initState ,action) =>{
             return action.err;
         case 'SAVE_TODO':
             console.log('Saved todo', action, state)
+            state.todos = [...state.todos, action.todo]
             return state;
         case 'SAVE_TODO_ERROR':
             console.log('Error saving todo', action,state)
