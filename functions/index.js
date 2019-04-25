@@ -25,28 +25,28 @@ const createNotification = notification => {
 //     return createNotification(notification);
 //   });
 
-  exports.projectEdited = functions.firestore
-  .document("projects/{projectId}")
-  .onUpdate((change,context) => {
-    const newValue = change.after.data();
+  // exports.projectEdited = functions.firestore
+  // .document("projects/{projectId}")
+  // .onUpdate((change,context) => {
+  //   const newValue = change.after.data();
 
-    const oldValue = change.before.data();
+  //   const oldValue = change.before.data();
 
-    if (newValue.lyrics !== oldValue.lyrics){
-        const notification = {
-            content: `Edited lyrics of ${newValue.title}`,
-            time: admin.firestore.FieldValue.serverTimestamp()
-          };
-          console.log("Lyrics changed, sending notification", notification)
-          return createNotification(notification);
-    }
+  //   if (newValue.lyrics !== oldValue.lyrics){
+  //       const notification = {
+  //           content: `Edited lyrics of ${newValue.title}`,
+  //           time: admin.firestore.FieldValue.serverTimestamp()
+  //         };
+  //         console.log("Lyrics changed, sending notification", notification)
+  //         return createNotification(notification);
+  //   }
 
-    if (newValue.recordings !== oldValue.recordings){
-        const notification = {
-            content: `Added recording to ${newValue.title}`,
-            time: admin.firestore.FieldValue.serverTimestamp()
-          };
-          console.log("Recording added, sending notification", notification)
-          return createNotification(notification);
-    }
-  });
+  //   if (newValue.recordings !== oldValue.recordings){
+  //       const notification = {
+  //           content: `Added recording to ${newValue.title}`,
+  //           time: admin.firestore.FieldValue.serverTimestamp()
+  //         };
+  //         console.log("Recording added, sending notification", notification)
+  //         return createNotification(notification);
+  //   }
+  // });

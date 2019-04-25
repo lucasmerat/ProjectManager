@@ -89,9 +89,10 @@ export const deleteProject = id => {
   };
 };
 
-export const editLyrics = (id, lyrics) => {
+export const editLyrics = (id, lyrics, title) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    const authorId = getState().firebase.auth.uid;
 
     firestore
       .collection("projects")
@@ -104,7 +105,13 @@ export const editLyrics = (id, lyrics) => {
         { merge: true }
       )
       .then(() => {
+        firestore.collection('notifications').add({
+          content: `Edited lyrics of ${title}`, 
+          time: new Date(), 
+          createdBy: authorId
+        }).then(()=>{
         dispatch({ type: "UPDATE_LYRICS", id, lyrics });
+        })
       })
       .catch(err => {
         dispatch({ type: "UPDATE_LYRICS_ERROR", err });

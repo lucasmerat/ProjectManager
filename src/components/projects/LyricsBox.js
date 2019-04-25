@@ -33,6 +33,8 @@ class LyricsBox extends Component {
     });
   };
   handleSave = e => {
+    const { editLyrics, singleProject, id } = this.props; 
+    
     let lyricsWithLineBreaks = this.refs.theTextInput.value.replace(/\n\r?/g, '<br />');
     this.setState(
       {
@@ -41,7 +43,7 @@ class LyricsBox extends Component {
         wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
       },
       () => {
-        this.props.editLyrics(this.props.id, this.state.lyrics); //Sends lyrics off to firebase to be saved
+        editLyrics(id, this.state.lyrics, singleProject.title); //Sends lyrics off to firebase to be saved
         notify.show("Lyrics saved!");
       }
     );
@@ -78,7 +80,6 @@ class LyricsBox extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     singleProject: state.singleProject
   };
@@ -86,7 +87,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editLyrics: (id, lyrics) => dispatch(editLyrics(id, lyrics))
+    editLyrics: (id, lyrics, title) => dispatch(editLyrics(id, lyrics, title))
   };
 };
 

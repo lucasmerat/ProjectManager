@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, ...rest, auth }) => {
-  // Add your own authentication on the below line.
-  const isLoggedIn = auth.uid;
+const PrivateRoute = ({ component: Component, ...rest }) => {
+
+    const isLoggedIn = rest.auth.uid;
 
   return (
     <Route
