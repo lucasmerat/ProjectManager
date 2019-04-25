@@ -144,13 +144,16 @@ export const saveRecording = (id, recording, projectTitle) => {
         { merge: true }
       )
       .then(() => {
-        firestore.collection('notifications').add({
-          content: `Added recording to ${projectTitle}`, 
-          time: new Date(), 
-          createdBy: authorId
-        }).then(()=>{
-        dispatch({ type: "SAVE_RECORDING", recordings });
-        })
+        firestore
+          .collection("notifications")
+          .add({
+            content: `Added recording to ${projectTitle}`,
+            time: new Date(),
+            createdBy: authorId
+          })
+          .then(() => {
+            dispatch({ type: "SAVE_RECORDING", recordings });
+          });
       })
       .catch(err => {
         dispatch({ type: "SAVE_RECORDING_ERROR", err });
@@ -159,26 +162,57 @@ export const saveRecording = (id, recording, projectTitle) => {
 };
 
 export const pushTodo = (id, todo) => {
-  todo = {text: todo}
-  console.log(todo);
+  todo = { text: todo, isCompleted: false };
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
-    console.log(firebase, firestore)
+    console.log(firebase, firestore);
 
     firestore
       .collection("projects")
       .doc(id)
       .update({
         todos: firebase.firestore.FieldValue.arrayUnion(todo)
-      }
-      )
+      })
       .then(() => {
         dispatch({ type: "SAVE_TODO", todo });
       })
       .catch(err => {
         dispatch({ type: "SAVE_TODO_ERROR", err });
+      });
+  };
+};
+
+export const pushComplete = (id, todo) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    console.log("Hello");
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    firestore
+      .collection("projects")
+      .doc(id)
+      .update({
+        todos: firebase.firestore.FieldValue.arrayRemove(todo)
+      })
+      .then(() => {
+        if (todo.isCompleted) {
+          todo.isCompleted = false;
+        } else {
+          todo.isCompleted = true;
+        }
+        firestore
+          .collection("projects")
+          .doc(id)
+          .update({
+            todos: firebase.firestore.FieldValue.arrayUnion(todo)
+          })
+          .then(() => {
+            dispatch({ type: "UPDATE_TODO", todo });
+          })
+          .catch(err => {
+            dispatch({ type: "UPDATE_TODO_ERROR", err });
+          });
       });
   };
 };

@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import Todo from './Todo'
 import TodoForm from './TodoForm'
-import { pushTodo } from '../../store/actions/projectActions'
+import { pushTodo, pushComplete } from '../../store/actions/projectActions'
 import { connect } from "react-redux";
 
 const Todos = ({todos, pushTodo, id}) =>{
-    // const [todos, setTodos] = useState([
-    //    {text: "First thing"},
-    //    {text: "second thing"},
-    //    {text: "third thing"},
-
-    // ]);
-    const addTodo = (text) =>{
+    const addTodo = text =>{
         pushTodo(id, text)
-        // setTodos(newTodos);
     }
-
+    const completeTodo = (todo) =>{
+        console.log(todo)
+        pushComplete(id, todo)
+    }
     return(
         <div className="todos">
-            <div className="todo-list">
+            <div className="todo-list collection">
                 {todos && todos.map((todo, index)=>(
-                    <Todo key={index} index={index} todo={todo}/>
+                    <Todo key={index} index={index} todo={todo} completeTodo={completeTodo}/>
                 ))}
                 <TodoForm addTodo={addTodo}/>
             </div>
@@ -28,15 +24,16 @@ const Todos = ({todos, pushTodo, id}) =>{
     )
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = state =>{
     return{
         todos: state.singleProject.todos
     }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = dispatch =>{
     return{
-        pushTodo: (id, todos) => dispatch(pushTodo(id, todos))
+        pushTodo: (id, todos) => dispatch(pushTodo(id, todos)),
+        pushComplete: (id, todo) => dispatch(pushComplete(id, todo))
     }
 }
 
