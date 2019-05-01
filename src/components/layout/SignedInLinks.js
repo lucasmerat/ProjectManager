@@ -4,11 +4,10 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
-const SignedInLinks = (props) => {
+const SignedInLinks = ({profile,signOut}) => {
     const handleClick = (e) =>{
-        props.signOut()
+        signOut()
     }
-    const {profile} = props;
     return (
         <ul className="right">
             <li><NavLink to="/createproject">New Project</NavLink></li>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Todo from './Todo'
 import TodoForm from './TodoForm'
-import { pushTodo, pushComplete } from '../../store/actions/projectActions'
+import { pushTodo, completeItem } from '../../store/actions/projectActions'
 import { connect } from "react-redux";
 
 const Todos = ({todos, pushTodo, id}) =>{
@@ -9,8 +9,8 @@ const Todos = ({todos, pushTodo, id}) =>{
         pushTodo(id, text)
     }
     const completeTodo = (todo) =>{
-        console.log(todo)
-        pushComplete(id, todo)
+        console.log(completeItem)
+        completeItem(id, todo)
     }
     return(
         <div className="todos">
@@ -33,7 +33,7 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch =>{
     return{
         pushTodo: (id, todos) => dispatch(pushTodo(id, todos)),
-        pushComplete: (id, todo) => dispatch(pushComplete(id, todo))
+        completeItem: (id, todo) => dispatch(completeItem(id, todo))
     }
 }
 

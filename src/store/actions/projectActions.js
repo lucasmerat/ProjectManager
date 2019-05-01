@@ -184,7 +184,9 @@ export const pushTodo = (id, todo) => {
   };
 };
 
-export const pushComplete = (id, todo) => {
+export const completeItem = (id, todo) => {
+  console.log("Why is this not running the return statement");
+  
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     console.log("Hello");
     const firebase = getFirebase();
@@ -194,25 +196,27 @@ export const pushComplete = (id, todo) => {
       .doc(id)
       .update({
         todos: firebase.firestore.FieldValue.arrayRemove(todo)
-      })
-      .then(() => {
-        if (todo.isCompleted) {
-          todo.isCompleted = false;
-        } else {
-          todo.isCompleted = true;
-        }
-        firestore
-          .collection("projects")
-          .doc(id)
-          .update({
-            todos: firebase.firestore.FieldValue.arrayUnion(todo)
-          })
-          .then(() => {
-            dispatch({ type: "UPDATE_TODO", todo });
-          })
-          .catch(err => {
-            dispatch({ type: "UPDATE_TODO_ERROR", err });
-          });
-      });
+      }).then(() => {
+              dispatch({ type: "UPDATE_TODO", todo });
+            })
+      // .then(() => {
+      //   if (todo.isCompleted) {
+      //     todo.isCompleted = false;
+      //   } else {
+      //     todo.isCompleted = true;
+      //   }
+      //   firestore
+      //     .collection("projects")
+      //     .doc(id)
+      //     .update({
+      //       todos: firebase.firestore.FieldValue.arrayUnion(todo)
+      //     })
+      //     .then(() => {
+      //       dispatch({ type: "UPDATE_TODO", todo });
+      //     })
+      //     .catch(err => {
+      //       dispatch({ type: "UPDATE_TODO_ERROR", err });
+      //     });
+      // });
   };
 };

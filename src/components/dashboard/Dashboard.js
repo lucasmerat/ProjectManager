@@ -9,8 +9,6 @@ import { loadProjects } from "../../store/actions/projectActions";
 
 class Dashboard extends Component {
   componentDidMount() {
-    console.log("loading projects");
-    console.log(this.props.auth);
     this.props.loadProjects();
   }
   render() {

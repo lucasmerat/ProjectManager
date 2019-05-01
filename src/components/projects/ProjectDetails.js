@@ -23,7 +23,6 @@ class ProjectDetails extends Component {
               <div className="card z-depth-0">
                 <div className="card-content">
                   <span className="card-title">{singleProject.title}</span>
-                  <p>{singleProject.content}</p>
                   <div className="row">
                     <div className="lyrics col s6">
                       <LyricsBox
