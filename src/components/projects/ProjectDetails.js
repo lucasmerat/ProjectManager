@@ -11,13 +11,10 @@ import { loadProject } from "../../store/actions/projectActions";
 class ProjectDetails extends Component {
   componentDidMount() {
     this.props.loadProject(this.props.match.params.id);
-    this.setState({
-        state:"A change"
-    })
   }
   render() {
-    const { singleProject } = this.props;
-    if (this.props.match.params.id === this.props.singleProject.id) { // Waits until correct project has been loaded to display page
+    const { singleProject, match, history } = this.props;
+    if (match.params.id === singleProject.id) { // Waits until correct project has been loaded to display page
         return (
             <div className="container section project-details">
               <div className="card z-depth-0">
@@ -26,11 +23,11 @@ class ProjectDetails extends Component {
                   <div className="row">
                     <div className="lyrics col s6">
                       <LyricsBox
-                        id={this.props.match.params.id}
+                        id={match.params.id}
                       />
                     </div>
                     <div className="todo col s6">
-                        <AudioRecorder id={this.props.match.params.id}/>
+                        <AudioRecorder id={match.params.id}/>
                         </div>
                   </div>
                 <div className="row">
@@ -38,7 +35,7 @@ class ProjectDetails extends Component {
                         <Chords />
                     </div>
                     <div className="col s6">
-                        <Todos id={this.props.match.params.id}/>
+                        <Todos id={match.params.id}/>
                     </div>
                 </div>
                 </div>
@@ -50,8 +47,8 @@ class ProjectDetails extends Component {
                     Last updated {moment(singleProject.updatedAt.toDate()).calendar()}
                   </div>
                   <DeleteProject
-                    history={this.props.history}
-                    id={this.props.match.params.id}
+                    history={history}
+                    id={match.params.id}
                   />
                 </div>
               </div>

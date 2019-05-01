@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import moment from "moment";
 import { connect } from "react-redux"; //connects the component to store
 import { editLyrics } from "../../store/actions/projectActions";
 import { notify } from "react-notify-toast";
 
 class LyricsBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+
+    state = {
       lyrics: ""
     };
-  }
+
   // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
@@ -34,7 +32,7 @@ class LyricsBox extends Component {
   };
   handleSave = e => {
     const { editLyrics, singleProject, id } = this.props; 
-    
+
     let lyricsWithLineBreaks = this.refs.theTextInput.value.replace(/\n\r?/g, '<br />');
     this.setState(
       {
@@ -50,14 +48,15 @@ class LyricsBox extends Component {
   };
   render() {
     //If we are editing the content, user sees the inpuit field. Otherwise, they see the lyrics
-    return this.state.isInEditMode ? (
+    const { isInEditMode, lyrics } = this.state;
+    return isInEditMode ? (
       <div className="card">
         <div className="card-content">
           <span className="card-title">Lyrics</span>
           <textarea
             type="text"
             id="lyrics"
-            defaultValue={this.state.lyrics && this.state.lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
+            defaultValue={lyrics && lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
             ref="theTextInput"
           />
           <button className="btn pink lighten-1" onClick={this.handleSave}>
@@ -69,7 +68,7 @@ class LyricsBox extends Component {
       <div className="card">
         <div className="card-content">
           <span className="card-title">Lyrics</span>
-          <p dangerouslySetInnerHTML={{ __html: this.state.lyrics }}></p>
+          <p dangerouslySetInnerHTML={{ __html: lyrics }}></p>
           <button className="btn pink lighten-1" onClick={this.handleEdit}>
             Edit
           </button>

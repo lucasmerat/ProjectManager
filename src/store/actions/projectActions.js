@@ -185,7 +185,7 @@ export const pushTodo = (id, todo) => {
 };
 
 export const completeItem = (id, todo) => {
-  console.log("Why is this not running the return statement");
+  console.log("Why is it not running the return statement");
   
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     console.log("Hello");
