@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Recordings from "../Recordings/";
+import Recordings from "../Recordings";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
 import { saveRecording } from "../../../store/actions/projectActions";

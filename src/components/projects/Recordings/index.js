@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import Recording from "../Recording"
 
 const Recordings = ({recordings}) => {
   let reversedRecordings = [...recordings].reverse();
@@ -7,10 +7,7 @@ const Recordings = ({recordings}) => {
     <div className="section">
       {reversedRecordings && reversedRecordings.map(recording => {
         return (
-          <div key={Math.random()}>
-            <audio src={recording[1]} controls="controls" />
-            <p>{moment(recording[0]).calendar()}</p>
-          </div>
+          <Recording key={recording[0]} recordingData={recording}  />
         );
       })}
     </div>
