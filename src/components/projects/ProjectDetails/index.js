@@ -66,7 +66,7 @@ class ProjectDetails extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     singleProject: state.singleProject,
     auth: state.firebase.auth

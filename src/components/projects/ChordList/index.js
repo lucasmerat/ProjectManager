@@ -1,10 +1,23 @@
 import React from 'react'
 import GuitarChord from 'react-guitar-chord'
+import { connect } from 'react-redux';
 
-export default function ChordList() {
+function ChordList({chords}) {
+  console.log(chords)
   return (
     <div>
-      <GuitarChord chord={'C'} quality={'MIN'}/>
+     {chords && chords.map((chord, index)=>{
+      return (<GuitarChord key={index}chord={chord.chord} quality={chord.quality} variation={chord.variation}/>)
+     })}
     </div>
   )
 }
+
+const mapStateToProps = state =>{
+  console.log(state)
+  return{
+    chords: state.singleProject.chords
+  }
+}
+
+export default connect(mapStateToProps, null)(ChordList)

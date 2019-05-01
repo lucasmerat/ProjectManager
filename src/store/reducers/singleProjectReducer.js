@@ -41,6 +41,7 @@ const singleProjectReducer = (state = initState, action) => {
     case "SAVE_CHORD":
       console.log("Saved chord", action, state);
       state.chords = [...state.chords, action.combinedChord];
+      console.log(state)
       return state;
     case "SAVE_CHORD_ERROR":
       console.log("Saved chord", action, state);
