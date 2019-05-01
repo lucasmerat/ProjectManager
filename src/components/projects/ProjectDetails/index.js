@@ -3,7 +3,8 @@ import { connect } from "react-redux"; //connects the component to store
 import moment from "moment";
 import LyricsBox from "../LyricsBox/";
 import AudioRecorder from "../AudioRecorder/"
-import Chords from "../Chords/"
+import ChordList from "../ChordList/"
+import ChordForm from "../ChordForm/"
 import Todos from "../Todos/"
 import DeleteProject from "../DeleteProject/";
 import { loadProject } from "../../../store/actions/projectActions";
@@ -32,7 +33,8 @@ class ProjectDetails extends Component {
                   </div>
                 <div className="row">
                     <div className="col s6">
-                        <Chords />
+                        <ChordForm />
+                        <ChordList />
                     </div>
                     <div className="col s6">
                         <Todos id={match.params.id}/>

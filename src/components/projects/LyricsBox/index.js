@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux"; //connects the component to store
+import { connect } from "react-redux";
 import { editLyrics } from '../../../store/actions/projectActions';
 import { notify } from "react-notify-toast";
+import "./LyricsBox.css";
 
 class LyricsBox extends Component {
 

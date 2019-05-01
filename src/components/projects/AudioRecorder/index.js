@@ -3,6 +3,7 @@ import Recordings from "../Recordings/";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
 import { saveRecording } from "../../../store/actions/projectActions";
+import "./AudioRecorder.css"
 
 class AudioRecorder extends Component {
   state = {
