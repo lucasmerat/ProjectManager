@@ -88,8 +88,8 @@ class ChordForm extends Component {
           <MenuItem value="">
             <em>Select a quality</em>
           </MenuItem>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={0}>1</MenuItem>
+          <MenuItem value={1}>2</MenuItem>
         </Select>
         <InputLabel htmlFor="quality-selector">Quality</InputLabel>
         <Select
@@ -109,7 +109,7 @@ class ChordForm extends Component {
           <MenuItem value={"MAJ"}>Major</MenuItem>
           <MenuItem value={"MIN"}>Minor</MenuItem>
         </Select>
-        <button onClick={this.handleSubmitClick}></button>
+        <button onClick={this.handleSubmitClick}>Add Chord</button>
       </div>
     );
   }
