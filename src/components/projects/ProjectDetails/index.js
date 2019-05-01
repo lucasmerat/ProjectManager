@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
 import moment from "moment";
-import LyricsBox from "./LyricsBox";
-import AudioRecorder from "./AudioRecorder"
-import Chords from "./Chords"
-import Todos from "./Todos"
-import DeleteProject from "./DeleteProject";
-import { loadProject } from "../../store/actions/projectActions";
+import LyricsBox from "../LyricsBox/";
+import AudioRecorder from "../AudioRecorder/"
+import Chords from "../Chords/"
+import Todos from "../Todos/"
+import DeleteProject from "../DeleteProject/";
+import { loadProject } from "../../../store/actions/projectActions";
 
 class ProjectDetails extends Component {
   componentDidMount() {

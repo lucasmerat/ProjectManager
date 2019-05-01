@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Recordings from "./Recordings";
+import Recordings from "../Recordings/";
 import { ReactMic } from "react-mic";
-import { connect } from "react-redux"; //connects the component to store
-import { saveRecording } from "../../store/actions/projectActions";
+import { connect } from "react-redux";
+import { saveRecording } from "../../../store/actions/projectActions";
 
 class AudioRecorder extends Component {
   state = {
