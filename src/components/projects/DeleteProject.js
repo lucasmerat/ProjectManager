@@ -3,9 +3,10 @@ import { connect } from 'react-redux' //connects the component to store
 import { deleteProject } from '../../store/actions/projectActions'
 
 class DeleteProject extends Component {
-    handleSubmit = (e) =>{
-        this.props.deleteProject(this.props.id);
-        this.props.history.push('/');
+    handleSubmit = () =>{
+        const { deleteProject, history, id } = this.props;
+        deleteProject(id);
+        history.push('/');
     }
     render(){
         return(

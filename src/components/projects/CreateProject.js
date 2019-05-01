@@ -4,8 +4,7 @@ import { createProject } from '../../store/actions/projectActions'
 
 class CreateProject extends Component {
     state = {
-        title: "",
-        content:""
+        title: ""
     }
     handleChange = (e) =>{
         this.setState({
@@ -24,7 +23,7 @@ class CreateProject extends Component {
             <h5 className="grey-text text-darken-3">Create a Project</h5>
             <div className="input-field">
                 <label htmlFor="title">Title</label>
-                <input type="text" id="title" onChange={this.handleChange}/>
+                <input type="text" id="title" value={this.state.title} onChange={this.handleChange}/>
             </div>
             <div className="input-field">
                 <button className="btn pink lighten-1 z-depth-0">Create</button>

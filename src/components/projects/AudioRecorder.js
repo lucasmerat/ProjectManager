@@ -21,10 +21,6 @@ class AudioRecorder extends Component {
     });
   };
 
-  onData(recordedBlob) {
-    console.log("chunk of real-time data is: ", recordedBlob);
-  }
-
   onStop = recordedBlob => {
     console.log("recordedBlob is: ", recordedBlob);
 
