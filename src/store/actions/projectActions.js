@@ -19,7 +19,6 @@ export const loadProjects = () => {
 };
 
 export const loadProject = id => {
-  console.log("loading single project");
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const authorId = getState().firebase.auth.uid;
@@ -131,14 +130,14 @@ export const saveRecording = (id, recording, projectTitle) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const authorId = getState().firebase.auth.uid;
-    let recordings = { [new Date().toISOString()]: recording };
+    let datedRecording = { [new Date().toISOString()]: recording };
 
     firestore
       .collection("projects")
       .doc(id)
       .set(
         {
-          recordings: recordings,
+          recordings: datedRecording,
           updatedAt: new Date()
         },
         { merge: true }
@@ -152,7 +151,7 @@ export const saveRecording = (id, recording, projectTitle) => {
             createdBy: authorId
           })
           .then(() => {
-            dispatch({ type: "SAVE_RECORDING", recordings });
+            dispatch({ type: "SAVE_RECORDING", datedRecording });
           });
       })
       .catch(err => {
@@ -186,7 +185,7 @@ export const pushTodo = (id, todo) => {
 
 export const completeItem = (id, todo) => {
   console.log("Why is it not running the return statement");
-  
+
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     console.log("Hello");
     const firebase = getFirebase();
@@ -196,27 +195,28 @@ export const completeItem = (id, todo) => {
       .doc(id)
       .update({
         todos: firebase.firestore.FieldValue.arrayRemove(todo)
-      }).then(() => {
-              dispatch({ type: "UPDATE_TODO", todo });
-            })
-      // .then(() => {
-      //   if (todo.isCompleted) {
-      //     todo.isCompleted = false;
-      //   } else {
-      //     todo.isCompleted = true;
-      //   }
-      //   firestore
-      //     .collection("projects")
-      //     .doc(id)
-      //     .update({
-      //       todos: firebase.firestore.FieldValue.arrayUnion(todo)
-      //     })
-      //     .then(() => {
-      //       dispatch({ type: "UPDATE_TODO", todo });
-      //     })
-      //     .catch(err => {
-      //       dispatch({ type: "UPDATE_TODO_ERROR", err });
-      //     });
-      // });
+      })
+      .then(() => {
+        dispatch({ type: "UPDATE_TODO", todo });
+      });
+    // .then(() => {
+    //   if (todo.isCompleted) {
+    //     todo.isCompleted = false;
+    //   } else {
+    //     todo.isCompleted = true;
+    //   }
+    //   firestore
+    //     .collection("projects")
+    //     .doc(id)
+    //     .update({
+    //       todos: firebase.firestore.FieldValue.arrayUnion(todo)
+    //     })
+    //     .then(() => {
+    //       dispatch({ type: "UPDATE_TODO", todo });
+    //     })
+    //     .catch(err => {
+    //       dispatch({ type: "UPDATE_TODO_ERROR", err });
+    //     });
+    // });
   };
 };

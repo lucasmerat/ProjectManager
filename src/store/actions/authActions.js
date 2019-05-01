@@ -26,7 +26,7 @@ export const signOut = () => {
 }
 
 export const signUp = (userInfo) =>{
-    return(dispatch, getState, {getFirebase, getFirestore}) => {
+    return(dispatch, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
 

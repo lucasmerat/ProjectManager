@@ -24,7 +24,9 @@ const ProjectList = ({ projects }) => {
     <div className="section">
       <div className="card z-depth-0">
         <div className="card-content">
-          <p className="pink-text">No songs added yet, go ahead and add your first!</p>
+          <p className="pink-text">
+            No songs added yet, go ahead and add your first!
+          </p>
         </div>
       </div>
     </div>
