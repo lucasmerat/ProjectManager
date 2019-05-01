@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
+import { pushChord } from "../../../store/actions/projectActions"
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -9,7 +11,8 @@ class ChordForm extends Component {
     selectedVariation: "",
     selectedChordQuality: "",
     chordSelectorOpen: false,
-    variationSelectorOpen: false
+    variationSelectorOpen: false,
+    qualitySelectorOpen: false
   };
   handleChordSelectorOpen = () => {
     this.setState({ chordSelectorOpen: true });
@@ -23,12 +26,26 @@ class ChordForm extends Component {
   handleVariationSelectorClose = () => {
     this.setState({ variationSelectorOpen: false });
   };
+  handleQualitySelectorOpen = () => {
+    this.setState({ qualitySelectorOpen: true });
+  };
+  handleQualitySelectorClose = () => {
+    this.setState({ qualitySelectorOpen: false });
+  };
   handleChordChange = e => {
     this.setState({ selectedChord: e.target.value });
   };
   handleVariationChange = e => {
     this.setState({ selectedVariation: e.target.value });
   };
+  handleQualityChange = e => {
+    this.setState({ selectedChordQuality: e.target.value });
+  };
+  handleSubmitClick = () => {
+    const { selectedChord, selectedVariation, selectedChordQuality } = this.state
+    const { pushChord, id } = this.props;
+    pushChord(id, selectedChord, selectedVariation, selectedChordQuality);
+  }
   render() {
     return (
       <div>
@@ -59,8 +76,8 @@ class ChordForm extends Component {
         <InputLabel htmlFor="variation-selector">Variation</InputLabel>
         <Select
           inputProps={{
-            name: "chord",
-            id: "chord-selector"
+            name: "variation",
+            id: "variation-selector"
           }}
           open={this.state.variationSelectorOpen}
           value={this.state.selectedVariation}
@@ -69,31 +86,42 @@ class ChordForm extends Component {
           onChange={this.handleVariationChange}
         >
           <MenuItem value="">
-            <em>Select a variation</em>
+            <em>Select a quality</em>
           </MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
         </Select>
-        <h5>Quality</h5>
-        <ul className="collection">
-          <li
-            name="MAJ"
-            onClick={this.handleChordQualityClick}
-            className="collection-item"
-          >
-            Major
-          </li>
-          <li
-            name="MIN"
-            onClick={this.handleChordQualityClick}
-            className="collection-item"
-          >
-            Minor
-          </li>
-        </ul>
+        <InputLabel htmlFor="quality-selector">Quality</InputLabel>
+        <Select
+          inputProps={{
+            name: "quality",
+            id: "quality-selector"
+          }}
+          open={this.state.qualitySelectorOpen}
+          value={this.state.selectedChordQuality}
+          onOpen={this.handleQualitySelectorOpen}
+          onClose={this.handleQualitySelectorClose}
+          onChange={this.handleQualityChange}
+        >
+          <MenuItem value="">
+            <em>Select a Quality</em>
+          </MenuItem>
+          <MenuItem value={"MAJ"}>Major</MenuItem>
+          <MenuItem value={"MIN"}>Minor</MenuItem>
+        </Select>
+        <button onClick={this.handleSubmitClick}></button>
       </div>
     );
   }
 }
 
-export default ChordForm;
+const mapDispatchToProps = dispatch =>{
+  return {
+    pushChord: (id, chord, variation, quality) => dispatch(pushChord(id, chord, variation, quality))
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ChordForm);

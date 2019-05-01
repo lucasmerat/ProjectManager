@@ -33,7 +33,7 @@ class ProjectDetails extends Component {
                   </div>
                 <div className="row">
                     <div className="col s6">
-                        <ChordForm />
+                        <ChordForm id={match.params.id}/>
                         <ChordList />
                     </div>
                     <div className="col s6">

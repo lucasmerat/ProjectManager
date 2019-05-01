@@ -38,6 +38,13 @@ const singleProjectReducer = (state = initState, action) => {
     case 'UPDATE_TODO_ERROR':
       console.log('Error saving todo', action,state)
       return action.err;
+    case "SAVE_CHORD":
+      console.log("Saved chord", action, state);
+      state.chords = [...state.chords, action.combinedChord];
+      return state;
+    case "SAVE_CHORD_ERROR":
+      console.log("Saved chord", action, state);
+      return action.err;
     default:
       return state;
   }

@@ -54,7 +54,8 @@ export const createProject = project => {
         authorId: authorId,
         updatedAt: new Date(),
         recordings: {},
-        todos: ""
+        todos: "",
+        chords: ""
       })
       .then(() => {
         console.log(project);
@@ -220,3 +221,30 @@ export const completeItem = (id, todo) => {
     // });
   };
 };
+
+export const pushChord = (id, chord, variation, quality) => {
+  console.log(quality)
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    const firebase = getFirebase();
+    let combinedChord = {
+      chord,
+      variation,
+      quality
+    }
+    console.log(combinedChord)
+
+    firestore
+      .collection("projects")
+      .doc(id)
+      .update({
+        chords: firebase.firestore.FieldValue.arrayUnion(combinedChord)
+      })
+      .then(() => {
+        dispatch({ type: "SAVE_CHORD", combinedChord });
+      })
+      .catch(err => {
+        dispatch({ type: "SAVE_CHORD_ERROR", err });
+      });
+  };
+}
