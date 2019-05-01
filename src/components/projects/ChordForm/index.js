@@ -23,6 +23,12 @@ class ChordForm extends Component {
   handleVariationSelectorClose = () => {
     this.setState({ variationSelectorOpen: false });
   };
+  handleChordChange = e => {
+    this.setState({ selectedChord: e.target.value });
+  };
+  handleVariationChange = e => {
+    this.setState({ selectedVariation: e.target.value });
+  };
   render() {
     return (
       <div>
@@ -35,9 +41,9 @@ class ChordForm extends Component {
           }}
           open={this.state.chordSelectorOpen}
           value={this.state.selectedChord}
-          onOpen={this.handleOpen}
-          onClose={this.handleClose}
-          onChange={this.handleChordClick}
+          onOpen={this.handleChordSelectorOpen}
+          onClose={this.handleChordSelectorClose}
+          onChange={this.handleChordChange}
         >
           <MenuItem value="">
             <em>Select a chord</em>
@@ -50,8 +56,7 @@ class ChordForm extends Component {
           <MenuItem value={"A"}>A</MenuItem>
           <MenuItem value={"B"}>B</MenuItem>
         </Select>
-        <h5>Variation</h5>
-        <InputLabel htmlFor="variation-selector">Chord</InputLabel>
+        <InputLabel htmlFor="variation-selector">Variation</InputLabel>
         <Select
           inputProps={{
             name: "chord",
@@ -59,9 +64,9 @@ class ChordForm extends Component {
           }}
           open={this.state.variationSelectorOpen}
           value={this.state.selectedVariation}
-          onOpen={this.handleOpen}
-          onClose={this.handleClose}
-          onChange={this.handleChordClick}
+          onOpen={this.handleVariationSelectorOpen}
+          onClose={this.handleVariationSelectorClose}
+          onChange={this.handleVariationChange}
         >
           <MenuItem value="">
             <em>Select a variation</em>
