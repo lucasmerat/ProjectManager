@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
 import moment from "moment";
 import LyricsBox from "../LyricsBox/";
-import AudioRecorder from "../AudioRecorder/"
+import AudioRecorder from "../Recorder/"
 import ChordList from "../ChordList/"
 import ChordForm from "../ChordForm/"
 import Todos from "../Todos/"

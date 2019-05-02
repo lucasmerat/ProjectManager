@@ -185,40 +185,13 @@ export const pushTodo = (id, todo) => {
 };
 
 export const completeItem = (id, todo) => {
-  console.log("Why is it not running the return statement");
+  console.log(id, todo);
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    console.log("Hello");
-    const firebase = getFirebase();
     const firestore = getFirestore();
-    firestore
-      .collection("projects")
-      .doc(id)
-      .update({
-        todos: firebase.firestore.FieldValue.arrayRemove(todo)
-      })
-      .then(() => {
-        dispatch({ type: "UPDATE_TODO", todo });
-      });
-    // .then(() => {
-    //   if (todo.isCompleted) {
-    //     todo.isCompleted = false;
-    //   } else {
-    //     todo.isCompleted = true;
-    //   }
-    //   firestore
-    //     .collection("projects")
-    //     .doc(id)
-    //     .update({
-    //       todos: firebase.firestore.FieldValue.arrayUnion(todo)
-    //     })
-    //     .then(() => {
-    //       dispatch({ type: "UPDATE_TODO", todo });
-    //     })
-    //     .catch(err => {
-    //       dispatch({ type: "UPDATE_TODO_ERROR", err });
-    //     });
-    // });
+    const firebase = getFirebase();
+    console.log(firebase, firestore);
+
   };
 };
 

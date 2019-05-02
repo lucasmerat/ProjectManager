@@ -32,8 +32,8 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch =>{
     return{
-        pushTodo: (id, todos) => dispatch(pushTodo(id, todos)),
-        completeItem: (id, todo) => dispatch(completeItem(id, todo))
+        completeItem: (id, todo) => dispatch(completeItem(id, todo)),
+        pushTodo: (id, todos) => dispatch(pushTodo(id, todos))
     }
 }
 
