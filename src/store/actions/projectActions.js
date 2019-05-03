@@ -161,6 +161,14 @@ export const saveRecording = (id, recording, projectTitle) => {
   };
 };
 
+export const deleteRecording = (id, recording, projectTitle) => {
+  console.log("Hello")
+
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    console.log("Hello")
+  };
+};
+
 export const pushTodo = (id, todo) => {
   todo = { text: todo, isCompleted: false };
 

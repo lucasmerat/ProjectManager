@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Recordings from "../Recordings";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
-import { saveRecording } from "../../../store/actions/projectActions";
+import { saveRecording, deleteRecording } from "../../../store/actions/projectActions";
 import "./Recorder.css"
 
 class AudioRecorder extends Component {
@@ -37,6 +37,9 @@ class AudioRecorder extends Component {
       props.saveRecording(props.id, dataurl, props.singleProject.title);
     });
   };
+  handleDeleteRecording = (recordingId) =>{
+    console.log(this.props.id, recordingId)
+  }
 
   render() {
     if (this.props.recordings.length > 0) {
@@ -59,7 +62,7 @@ class AudioRecorder extends Component {
               Stop
             </button>
             <div id="recordings">
-              <Recordings recordings={this.props.recordings} />
+              <Recordings handleDeleteRecording={recordingId=>{this.handleDeleteRecording(recordingId)}} recordings={this.props.recordings} />
             </div>
           </div>
         </div>
@@ -101,7 +104,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveRecording: (id, recording, projectTitle) =>
-      dispatch(saveRecording(id, recording, projectTitle))
+      dispatch(saveRecording(id, recording, projectTitle)), 
+    deleteRecording: (recordingId, projectId) => dispatch(deleteRecording(recordingId, projectId))
   };
 };
 
