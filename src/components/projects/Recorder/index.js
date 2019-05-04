@@ -38,7 +38,7 @@ class AudioRecorder extends Component {
     });
   };
   handleDeleteRecording = (recordingId) =>{
-    console.log(this.props.id, recordingId)
+    this.props.deleteRecording(recordingId, this.props.id);
   }
 
   render() {
