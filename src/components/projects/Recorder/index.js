@@ -92,6 +92,7 @@ class AudioRecorder extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   if (state.singleProject.recordings) {
     let arr = Object.entries(state.singleProject.recordings);
     return {

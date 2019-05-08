@@ -24,6 +24,14 @@ const singleProjectReducer = (state = initState, action) => {
     case "SAVE_RECORDING_ERROR":
       console.log("Error saving recording", action, state);
       return action.err;
+    case "DELETE_RECORDING":
+      console.log("Recording deleted!", action, state);
+      const stateWithNewRecordings = {...state};  
+      stateWithNewRecordings.recordings = action.updatedRecordings;
+      return stateWithNewRecordings;
+    case "DELETE_RECORDING_ERROR":
+      console.log("Delete recording error!", action, state);
+      return action.err;
     case "SAVE_TODO":
       console.log("Saved todo", action, state);
       state.todos = [...state.todos, action.todo];
@@ -41,7 +49,6 @@ const singleProjectReducer = (state = initState, action) => {
     case "SAVE_CHORD":
       console.log("Saved chord", action, state);
       state.chords = [...state.chords, action.combinedChord];
-      console.log(state)
       return state;
     case "SAVE_CHORD_ERROR":
       console.log("Saved chord", action, state);

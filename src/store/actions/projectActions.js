@@ -8,7 +8,7 @@ export const loadProjects = () => {
       .get()
       .then(data => {
         let projects = [];
-        data.forEach((doc)=> {
+        data.forEach(doc => {
           let project = doc.data();
           project.id = doc.id;
           projects.push(project);
@@ -162,36 +162,43 @@ export const saveRecording = (id, recording, projectTitle) => {
 };
 
 export const deleteRecording = (recordingId, id) => {
-
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
-    console.log(firebase.firestore.FieldValue)
+    console.log(firebase.firestore.FieldValue);
     firestore
       .collection("projects")
       .doc(id)
       .get()
-      .then(data=>{
-        let song = data.data()
-        let recordings = {...song.recordings}
-        console.log(recordings, recordingId)
-        delete recordings.recordingId
-        console.log(recordings, recordingId)
-
-      })
-    // firestore
-    //   .collection("projects")
-    //   .doc(id)
-    //   .update({
-    //     capital: firebase.firestore.FieldValue.delete()
-    //   })
-    //   .then(() => {
-    //     let projects = getState().firestore.ordered.projects;
-    //     dispatch({ type: "DELETE_PROJECT", projects });
-    //   })
-    //   .catch(err => {
-    //     dispatch({ type: "DELETE_PROJECT_ERROR", err });
-    //   });
+      .then(data => {
+        firestore
+          .collection("projects")
+          .doc(id)
+          .update({
+            recordings: firebase.firestore.FieldValue.delete()
+          })
+          .then(() => {
+            let song = data.data();
+            let updatedRecordings = { ...song.recordings };
+            delete updatedRecordings[recordingId];
+            firestore
+              .collection("projects")
+              .doc(id)
+              .set(
+                {
+                  recordings: updatedRecordings,
+                  updatedAt: new Date()
+                },
+                { merge: true }
+              )
+              .then(() => {
+                dispatch({ type: "DELETE_RECORDING", updatedRecordings });
+              })
+              .catch(err => {
+                dispatch({ type: "DELETE_RECORDING_ERROR", err });
+              });
+          });
+      });
   };
 };
 
@@ -225,12 +232,11 @@ export const completeItem = (id, todo) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
     console.log(firebase, firestore);
-
   };
 };
 
 export const pushChord = (id, chord, variation, quality) => {
-  console.log(quality)
+  console.log(quality);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
@@ -238,8 +244,8 @@ export const pushChord = (id, chord, variation, quality) => {
       chord,
       variation,
       quality
-    }
-    console.log(combinedChord)
+    };
+    console.log(combinedChord);
 
     firestore
       .collection("projects")
@@ -254,4 +260,4 @@ export const pushChord = (id, chord, variation, quality) => {
         dispatch({ type: "SAVE_CHORD_ERROR", err });
       });
   };
-}
+};
