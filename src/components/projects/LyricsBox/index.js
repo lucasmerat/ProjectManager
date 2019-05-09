@@ -29,6 +29,8 @@ class LyricsBox extends Component {
     this.setState({
       ...this.state,
       isInEditMode: true
+    }, ()=>{
+      this.refs.theTextInput.focus();
     });
   };
   handleSave = e => {
