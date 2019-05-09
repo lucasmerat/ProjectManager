@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
 import moment from "moment";
 import LyricsBox from "../LyricsBox/";
-import AudioRecorder from "../Recorder/";
+import Recorder from "../Recorder/";
 import ChordList from "../ChordList/";
 import ChordForm from "../ChordForm/";
 import Todos from "../Todos/";
@@ -30,7 +30,7 @@ class ProjectDetails extends Component {
                   <LyricsBox id={match.params.id} />
                 </div>
                 <div className="recorder-section col s6">
-                  <AudioRecorder id={match.params.id} />
+                  <Recorder id={match.params.id} />
                 </div>
               </div>
               <div className="row">

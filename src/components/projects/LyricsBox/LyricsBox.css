@@ -4,4 +4,16 @@
 
 .card-button {
   margin-top: 15px;
+  width: 100px;
+}
+
+.lyrics-card{
+  min-height: 344px;
+}
+
+.lyrics-card-content{
+  min-height: 344px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

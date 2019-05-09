@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import Recordings from "../Recordings";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
-import { saveRecording, deleteRecording } from "../../../store/actions/projectActions";
-import "./Recorder.css"
+import {
+  saveRecording,
+  deleteRecording
+} from "../../../store/actions/projectActions";
+import "./Recorder.css";
 
 class AudioRecorder extends Component {
   state = {
@@ -37,15 +40,15 @@ class AudioRecorder extends Component {
       props.saveRecording(props.id, dataurl, props.singleProject.title);
     });
   };
-  handleDeleteRecording = (recordingId) =>{
+  handleDeleteRecording = recordingId => {
     this.props.deleteRecording(recordingId, this.props.id);
-  }
+  };
 
   render() {
     if (this.props.recordings.length > 0) {
       return (
-        <div className="card">
-          <div className="card-content">
+        <div className="card recorder-card">
+          <div className="recorder-card-content card-content">
             <span className="card-title">Recorder</span>
             <ReactMic
               record={this.state.record}
@@ -55,14 +58,29 @@ class AudioRecorder extends Component {
               strokeColor="#000000"
               backgroundColor="#FF4081"
             />
-            <button onClick={this.startRecording} type="button">
-              Start
-            </button>
-            <button onClick={this.stopRecording} type="button">
-              Stop
-            </button>
+            <div className="record-buttons">
+                <button
+                  onClick={this.startRecording}
+                  type="button"
+                  className="record-button btn-floating btn-large waves-effect waves-light pink lighten-1"
+                >
+                  <i class="fas fa-microphone" />
+                </button>
+                <button
+                  onClick={this.stopRecording}
+                  type="button"
+                  className="btn-floating btn-large waves-effect waves-light pink lighten-1"
+                >
+                  <i class="fas fa-square" />
+                </button>
+              </div>
             <div id="recordings">
-              <Recordings handleDeleteRecording={recordingId=>{this.handleDeleteRecording(recordingId)}} recordings={this.props.recordings} />
+              <Recordings
+                handleDeleteRecording={recordingId => {
+                  this.handleDeleteRecording(recordingId);
+                }}
+                recordings={this.props.recordings}
+              />
             </div>
           </div>
         </div>
@@ -70,21 +88,36 @@ class AudioRecorder extends Component {
     } else {
       return (
         <div>
-          <ReactMic
-            record={this.state.record}
-            className="sound-wave"
-            onStop={this.onStop}
-            onData={this.onData}
-            strokeColor="#000000"
-            backgroundColor="#FF4081"
-          />
-          <button onClick={this.startRecording} type="button">
-            Start
-          </button>
-          <button onClick={this.stopRecording} type="button">
-            Stop
-          </button>
-          <div id="recordings">No recordings yet...</div>
+          <div className="card recorder-card">
+            <div className="recorder-card-content card-content">
+              <span className="card-title">Recorder</span>
+              <ReactMic
+                record={this.state.record}
+                className="sound-wave"
+                onStop={this.onStop}
+                onData={this.onData}
+                strokeColor="#000000"
+                backgroundColor="#FF4081"
+              />
+              <div className="record-buttons">
+                <button
+                  onClick={this.startRecording}
+                  type="button"
+                  className="record-button btn-floating btn-large waves-effect waves-light pink lighten-1"
+                >
+                  <i class="fas fa-microphone" />
+                </button>
+                <button
+                  onClick={this.stopRecording}
+                  type="button"
+                  className="btn-floating btn-large waves-effect waves-light pink lighten-1"
+                >
+                  <i class="fas fa-square" />
+                </button>
+              </div>
+              <div id="recordings">No recordings yet...</div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -92,7 +125,7 @@ class AudioRecorder extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
+  console.log(state);
   if (state.singleProject.recordings) {
     let arr = Object.entries(state.singleProject.recordings);
     return {
@@ -105,8 +138,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveRecording: (id, recording, projectTitle) =>
-      dispatch(saveRecording(id, recording, projectTitle)), 
-    deleteRecording: (recordingId, projectId) => dispatch(deleteRecording(recordingId, projectId))
+      dispatch(saveRecording(id, recording, projectTitle)),
+    deleteRecording: (recordingId, projectId) =>
+      dispatch(deleteRecording(recordingId, projectId))
   };
 };
 

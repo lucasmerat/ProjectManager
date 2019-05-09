@@ -51,8 +51,8 @@ class LyricsBox extends Component {
     //If we are editing the content, user sees the inpuit field. Otherwise, they see the lyrics
     const { isInEditMode, lyrics } = this.state;
     return isInEditMode ? (
-      <div className="card">
-        <div className="card-content">
+      <div className="card lyrics-card">
+        <div className="lyrics-card-content card-content">
           <span className="card-title">Lyrics</span>
           <textarea
             type="text"
@@ -60,14 +60,14 @@ class LyricsBox extends Component {
             defaultValue={lyrics && lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
             ref="theTextInput"
           />
-          <button className="card-button btn pink lighten-1" onClick={this.handleSave}>
+          <button className="save-lyrics card-button btn pink lighten-1" onClick={this.handleSave}>
             Save
           </button>
         </div>
       </div>
     ) : (
-      <div className="card">
-        <div className="card-content">
+      <div className="card lyrics-card">
+        <div className="lyrics-card-content card-content">
           <span className="card-title">Lyrics</span>
           <p dangerouslySetInnerHTML={{ __html: lyrics }}></p>
           <button className="card-button btn pink lighten-1" onClick={this.handleEdit}>
