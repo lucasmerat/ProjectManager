@@ -1,0 +1,9 @@
+.recording-data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.audio-controls{
+    width:100%;
+}

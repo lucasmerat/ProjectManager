@@ -7,7 +7,7 @@ import "./LyricsBox.css";
 class LyricsBox extends Component {
 
     state = {
-      lyrics: ""
+      lyrics: "What do you want to say?"
     };
 
   // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
@@ -60,7 +60,7 @@ class LyricsBox extends Component {
             defaultValue={lyrics && lyrics.replace(/<br\s*\/?>/gi,'\r\n')}
             ref="theTextInput"
           />
-          <button className="btn pink lighten-1" onClick={this.handleSave}>
+          <button className="card-button btn pink lighten-1" onClick={this.handleSave}>
             Save
           </button>
         </div>
@@ -70,7 +70,7 @@ class LyricsBox extends Component {
         <div className="card-content">
           <span className="card-title">Lyrics</span>
           <p dangerouslySetInnerHTML={{ __html: lyrics }}></p>
-          <button className="btn pink lighten-1" onClick={this.handleEdit}>
+          <button className="card-button btn pink lighten-1" onClick={this.handleEdit}>
             Edit
           </button>
         </div>
