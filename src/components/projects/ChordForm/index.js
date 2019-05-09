@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
 import { pushChord } from "../../../store/actions/projectActions"
+import { notify } from "react-notify-toast";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -45,6 +46,7 @@ class ChordForm extends Component {
     const { selectedChord, selectedVariation, selectedChordQuality } = this.state
     const { pushChord, id } = this.props;
     pushChord(id, selectedChord, selectedVariation, selectedChordQuality);
+    notify.show("Chord added!")
   }
   render() {
     return (

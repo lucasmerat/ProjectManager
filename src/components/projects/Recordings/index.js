@@ -4,7 +4,6 @@ import "./Recordings.css"
 
 const Recordings = ({recordings, handleDeleteRecording}) => {
   let reversedRecordings = [...recordings].reverse();
-  console.log(handleDeleteRecording)
   return (
     <div className="recording-box section">
       {reversedRecordings && reversedRecordings.map(recording => {

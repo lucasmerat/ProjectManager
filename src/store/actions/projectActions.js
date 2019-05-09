@@ -40,7 +40,6 @@ export const loadProject = id => {
 
 export const createProject = project => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    //make asynch call to database  -- then dispatch again and pas in action below
     const firestore = getFirestore();
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;

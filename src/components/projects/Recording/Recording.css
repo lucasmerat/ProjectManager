@@ -2,8 +2,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .audio-controls{
-    width:100%;
+    width: 85%;
+}
+
+.recording-time{
+    margin-left:6px !important;
 }

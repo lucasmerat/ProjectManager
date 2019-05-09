@@ -3,10 +3,13 @@ import Todo from '../Todo/'
 import TodoForm from '../TodoForm/'
 import { pushTodo, completeItem } from '../../../store/actions/projectActions'
 import { connect } from "react-redux";
+import { notify } from "react-notify-toast";
 
 const Todos = ({todos, pushTodo, id}) =>{
     const addTodo = text =>{
-        pushTodo(id, text)
+        pushTodo(id, text);
+        notify.show("Todo added!")
+        
     }
     const completeTodo = (todo) =>{
         console.log(completeItem)

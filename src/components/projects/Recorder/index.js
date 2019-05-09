@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Recordings from "../Recordings";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
+import { notify } from "react-notify-toast";
 import {
   saveRecording,
   deleteRecording
@@ -38,6 +39,7 @@ class AudioRecorder extends Component {
 
     blobToDataURL(recordedBlob.blob, this.props, function(dataurl, props) {
       props.saveRecording(props.id, dataurl, props.singleProject.title);
+      notify.show("Recording saved!")
     });
   };
   handleDeleteRecording = recordingId => {
@@ -62,16 +64,16 @@ class AudioRecorder extends Component {
                 <button
                   onClick={this.startRecording}
                   type="button"
-                  className="record-button btn-floating btn-large waves-effect waves-light pink lighten-1"
+                  className="record-button btn-floating btn-medium waves-effect waves-light pink lighten-1"
                 >
-                  <i class="fas fa-microphone" />
+                  <i className="fas fa-microphone" />
                 </button>
                 <button
                   onClick={this.stopRecording}
                   type="button"
-                  className="btn-floating btn-large waves-effect waves-light pink lighten-1"
+                  className="btn-floating waves-effect waves-light pink lighten-1"
                 >
-                  <i class="fas fa-square" />
+                  <i className="fas fa-square" />
                 </button>
               </div>
             <div id="recordings">
@@ -103,14 +105,14 @@ class AudioRecorder extends Component {
                 <button
                   onClick={this.startRecording}
                   type="button"
-                  className="record-button btn-floating btn-large waves-effect waves-light pink lighten-1"
+                  className="record-button btn-floating btn-medium waves-effect waves-light pink lighten-1"
                 >
                   <i class="fas fa-microphone" />
                 </button>
                 <button
                   onClick={this.stopRecording}
                   type="button"
-                  className="btn-floating btn-large waves-effect waves-light pink lighten-1"
+                  className="btn-floating waves-effect waves-light pink lighten-1"
                 >
                   <i class="fas fa-square" />
                 </button>

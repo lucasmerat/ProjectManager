@@ -8,11 +8,11 @@
 }
 
 .lyrics-card{
-  min-height: 344px;
+  min-height: 355px;
 }
 
 .lyrics-card-content{
-  min-height: 344px;
+  min-height: 355px;
   display:flex;
   flex-direction: column;
   justify-content: space-between;
