@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux"; //connects the component to store
-import { deleteProject } from "../../../store/actions/projectActions";
+import { deleteProject } from "../../../store/actions/songActions";
 
 const DeleteProject = ({ deleteProject, history, id }) => {
   const handleSubmit = () => {

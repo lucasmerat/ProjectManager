@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { pushChord } from "../../../store/actions/projectActions";
+import { pushChord } from "../../../store/actions/songActions";
 import ChordFormInput from "../ChordFormInput";
 import { notify } from "react-notify-toast";
 

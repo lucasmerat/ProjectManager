@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Todo from '../Todo/'
 import TodoForm from '../TodoForm/'
-import { pushTodo, completeItem } from '../../../store/actions/projectActions'
+import { pushTodo, completeItem } from '../../../store/actions/songActions'
 import { connect } from "react-redux";
 import { notify } from "react-notify-toast";
 

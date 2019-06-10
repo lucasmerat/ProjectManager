@@ -7,7 +7,7 @@ import ChordList from "../ChordList";
 import ChordForm from "../ChordForm";
 import Todos from "../Todos";
 import DeleteProject from "../DeleteProject";
-import { loadSong } from "../../../store/actions/projectActions";
+import { loadSong } from "../../../store/actions/songActions";
 import "./SongDetails.css";
 
 class SongDetails extends Component {

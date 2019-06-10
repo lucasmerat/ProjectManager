@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editLyrics } from '../../../store/actions/projectActions';
+import { editLyrics } from '../../../store/actions/songActions';
 import { notify } from "react-notify-toast";
 import "./LyricsBox.css";
 

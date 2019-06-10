@@ -6,7 +6,7 @@ import { notify } from "react-notify-toast";
 import {
   saveRecording,
   deleteRecording
-} from "../../../store/actions/projectActions";
+} from "../../../store/actions/songActions";
 import "./Recorder.css";
 
 class AudioRecorder extends Component {
