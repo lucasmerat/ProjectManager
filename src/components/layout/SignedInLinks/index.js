@@ -10,7 +10,7 @@ const SignedInLinks = ({profile,signOut}) => {
     }
     return (
         <ul className="right">
-            <li><NavLink to="/createproject">New Project</NavLink></li>
+            <li><NavLink to="/createproject">New Song</NavLink></li>
             <li><NavLink to="/signin" onClick={handleClick}>Log out</NavLink></li>
             <li><NavLink to="/" className="btn btn-floating pink lighten-1">{ profile.initials }</NavLink></li>
         </ul>

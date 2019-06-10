@@ -1,5 +1,5 @@
-export const loadProjects = () => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+export const loadSongs = () => {
+  return (dispatch, getState, { getFirestore }) => {
     const authorId = getState().firebase.auth.uid;
     const firestore = getFirestore();
     firestore
@@ -7,13 +7,13 @@ export const loadProjects = () => {
       .where("authorId", "==", authorId)
       .get()
       .then(data => {
-        let projects = [];
+        let songs = [];
         data.forEach(doc => {
-          let project = doc.data();
-          project.id = doc.id;
-          projects.push(project);
+          let song = doc.data();
+          song.id = doc.id;
+          songs.push(song);
         });
-        dispatch({ type: "LOAD_PROJECTS", projects });
+        dispatch({ type: "LOAD_SONGS", songs });
       });
   };
 };

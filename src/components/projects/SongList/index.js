@@ -1,21 +1,21 @@
 import React from "react";
-import ProjectSummary from "../ProjectSummary/";
+import SongSummary from "../SongSummary";
 import { Link } from "react-router-dom";
 
-const ProjectList = ({ projects }) => {
-  let sortedProjects;
-  if (projects.length > 0) {
-    sortedProjects = [...projects].sort((a, b) => {
+const SongList = ({ songs }) => {
+  let sortedSongs;
+  if (songs.length > 0) {
+    sortedSongs = [...songs].sort((a, b) => {
       return b.updatedAt.seconds > a.updatedAt.seconds ? 1 : -1;
     });
   }
-  return sortedProjects ? (
+  return sortedSongs ? (
     <div className="project-list section">
-      {sortedProjects &&
-        sortedProjects.map(project => {
+      {sortedSongs &&
+        sortedSongs.map(song => {
           return (
-            <Link to={"/project/" + project.id} key={project.id}>
-              <ProjectSummary project={project} />
+            <Link to={"/project/" + song.id} key={song.id}>
+              <SongSummary song={song} />
             </Link>
           );
         })}
@@ -33,4 +33,4 @@ const ProjectList = ({ projects }) => {
   );
 };
 
-export default ProjectList;
+export default SongList;

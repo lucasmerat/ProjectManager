@@ -5,19 +5,19 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import { loadProjects } from "../../../store/actions/projectActions";
+import { loadSongs } from "../../../store/actions/projectActions";
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.loadProjects();
+    this.props.loadSongs();
   }
   render() {
-    const { projects, notifications } = this.props;
+    const { songs, notifications } = this.props;
       return (
         <div className="dashboard container">
           <div className="row">
             <div className="col s12 m6">
-              <ProjectList projects={projects} />
+              <ProjectList songs={songs} />
             </div>
             <div className="col s12 m5 offset-m1">
               <Notifications notifications={notifications} />
@@ -29,9 +29,8 @@ class Dashboard extends Component {
   }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
-    projects: state.projects,
+    songs: state.songs,
     auth: state.firebase.auth,
     notifications: state.firestore.ordered.notifications
   };
@@ -39,7 +38,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProjects: () => dispatch(loadProjects())
+    loadSongs: () => dispatch(loadSongs())
   };
 };
 

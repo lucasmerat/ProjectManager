@@ -1,11 +1,11 @@
 const initState = [
     ];
 
-const projectReducer = (state = initState ,action) =>{
+const songReducer = (state = initState ,action) =>{
     switch (action.type){
-        case 'LOAD_PROJECTS':
-            console.log("Loading projects", action, state)
-            return [...action.projects];
+        case 'LOAD_SONGS':
+            console.log("Loading songs", action, state)
+            return [...action.songs];
         case 'CREATE_PROJECT': 
             console.log('Created a project', action, state);
             return [...state];
@@ -23,4 +23,4 @@ const projectReducer = (state = initState ,action) =>{
     }
 }
 
-export default projectReducer
+export default songReducer

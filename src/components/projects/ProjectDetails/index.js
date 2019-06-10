@@ -60,7 +60,7 @@ class ProjectDetails extends Component {
     } else {
       return (
         <div className="container center">
-          <p>Loading project...</p>
+          <p>Loading song...</p>
         </div>
       );
     }
