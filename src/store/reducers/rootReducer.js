@@ -1,6 +1,6 @@
 import authReducer from './authReducer'
 import songReducer from './songReducer'
-import singleProjectReducer from './singleProjectReducer'
+import singleSongReducer from './singleSongReducer'
 import { combineReducers } from 'redux'
 import { firestoreReducer } from 'redux-firestore'
 import { firebaseReducer } from 'react-redux-firebase' // Syncs auth status with redux store and pops it on firebase property in reducer
@@ -8,7 +8,7 @@ import { firebaseReducer } from 'react-redux-firebase' // Syncs auth status with
 const rootReducer = combineReducers({
     auth: authReducer,
     songs: songReducer,
-    singleProject: singleProjectReducer,
+    singleSong: singleSongReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer
 });

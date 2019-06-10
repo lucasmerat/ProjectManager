@@ -13,12 +13,12 @@ class LyricsBox extends Component {
   // Makes it so when I switch between projects, the new props passed display the correct lyrics on the page
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
-      nextProps.singleProject.lyrics !== prevState.lyrics &&
+      nextProps.singleSong.lyrics !== prevState.lyrics &&
       !prevState.wasJustEdited
     ) {
       console.log("Lyrics of state and props are different, updating lyrics");
       return {
-        lyrics: nextProps.singleProject.lyrics,
+        lyrics: nextProps.singleSong.lyrics,
         isInEditMode: false
       };
     }
@@ -34,7 +34,7 @@ class LyricsBox extends Component {
     });
   };
   handleSave = e => {
-    const { editLyrics, singleProject, id } = this.props; 
+    const { editLyrics, singleSong, id } = this.props; 
 
     let lyricsWithLineBreaks = this.refs.theTextInput.value.replace(/\n\r?/g, '<br />');
     this.setState(
@@ -44,7 +44,7 @@ class LyricsBox extends Component {
         wasJustEdited: true //Prevents gerDerivedStateFromProps from updating with previous value to ensure that change is saved to database and displayed on screen
       },
       () => {
-        editLyrics(id, this.state.lyrics, singleProject.title); //Sends lyrics off to firebase to be saved
+        editLyrics(id, this.state.lyrics, singleSong.title); //Sends lyrics off to firebase to be saved
         notify.show("Lyrics saved!");
       }
     );
@@ -83,7 +83,7 @@ class LyricsBox extends Component {
 
 const mapStateToProps = state => {
   return {
-    singleProject: state.singleProject
+    singleSong: state.singleSong
   };
 };
 

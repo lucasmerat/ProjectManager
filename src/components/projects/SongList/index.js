@@ -14,7 +14,7 @@ const SongList = ({ songs }) => {
       {sortedSongs &&
         sortedSongs.map(song => {
           return (
-            <Link to={"/project/" + song.id} key={song.id}>
+            <Link to={"/song/" + song.id} key={song.id}>
               <SongSummary song={song} />
             </Link>
           );

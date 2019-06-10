@@ -1,9 +1,9 @@
 const initState = [];
 
-const singleProjectReducer = (state = initState, action) => {
+const singleSongReducer = (state = initState, action) => {
   switch (action.type) {
-    case "LOAD_PROJECT":
-      console.log("Loading single project", action);
+    case "LOAD_SONG":
+      console.log("Loading single song", action);
       action.project.id = action.id;
       return action.project;
     case "UPDATE_LYRICS":
@@ -58,4 +58,4 @@ const singleProjectReducer = (state = initState, action) => {
   }
 };
 
-export default singleProjectReducer;
+export default singleSongReducer;

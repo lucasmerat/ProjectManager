@@ -18,7 +18,7 @@ export const loadSongs = () => {
   };
 };
 
-export const loadProject = id => {
+export const loadSong = id => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const authorId = getState().firebase.auth.uid;
@@ -33,7 +33,7 @@ export const loadProject = id => {
             project = doc.data();
           }
         });
-        dispatch({ type: "LOAD_PROJECT", project, id });
+        dispatch({ type: "LOAD_SONG", project, id });
       });
   };
 };

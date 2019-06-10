@@ -29,7 +29,7 @@ const Todos = ({todos, pushTodo, id}) =>{
 
 const mapStateToProps = state =>{
     return{
-        todos: state.singleProject.todos
+        todos: state.singleSong.todos
     }
 }
 

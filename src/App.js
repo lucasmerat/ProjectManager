@@ -3,10 +3,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import PrivateRoute from './components/auth/PrivateRoute/'
 import NavBar from './components/layout/Navbar/'
 import Dashboard from './components/dashboard/Dashboard/'
-import ProjectDetails from './components/projects/ProjectDetails/';
+import SongDetails from './components/projects/SongDetails';
 import SignIn from './components/auth/SignIn/';
 import SignUp from './components/auth/SignUp/';
-import CreateProject from './components/projects/CreateProject/';
+import CreateSong from './components/projects/CreateSong';
 import Notifications from 'react-notify-toast';
 
 
@@ -19,10 +19,10 @@ class App extends Component {
           <NavBar />
           <Switch>
             <PrivateRoute exact path='/' component={Dashboard}></PrivateRoute>
-            <PrivateRoute path='/project/:id' component={ProjectDetails}></PrivateRoute>
+            <PrivateRoute path='/song/:id' component={SongDetails}></PrivateRoute>
             <Route path='/signin' component={SignIn}></Route>
             <Route path='/signup' component={SignUp}></Route>
-            <PrivateRoute path='/createproject' component={CreateProject}></PrivateRoute>
+            <PrivateRoute path='/createsong' component={CreateSong}></PrivateRoute>
           </Switch>
         </div>
       </BrowserRouter>

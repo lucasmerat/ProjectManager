@@ -1,29 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; //connects the component to store
 import moment from "moment";
-import LyricsBox from "../LyricsBox/";
-import Recorder from "../Recorder/";
-import ChordList from "../ChordList/";
-import ChordForm from "../ChordForm/";
-import Todos from "../Todos/";
-import DeleteProject from "../DeleteProject/";
-import { loadProject } from "../../../store/actions/projectActions";
-import "./ProjectDetails.css";
+import LyricsBox from "../LyricsBox";
+import Recorder from "../Recorder";
+import ChordList from "../ChordList";
+import ChordForm from "../ChordForm";
+import Todos from "../Todos";
+import DeleteProject from "../DeleteProject";
+import { loadSong } from "../../../store/actions/projectActions";
+import "./SongDetails.css";
 
-class ProjectDetails extends Component {
+class SongDetails extends Component {
   componentDidMount() {
-    this.props.loadProject(this.props.match.params.id);
+    this.props.loadSong(this.props.match.params.id);
   }
   render() {
-    const { singleProject, match, history } = this.props;
-    if (match.params.id === singleProject.id) {
+    const { singleSong, match, history } = this.props;
+    if (match.params.id === singleSong.id) {
       // Waits until correct project has been loaded to display page
       return (
         <div className="container section project-details">
           <div className="card z-depth-0">
             <div className="card-content">
               <span className="project-title card-title">
-                {singleProject.title}
+                {singleSong.title}
               </span>
               <div className="row">
                 <div className="lyrics-section col s6">
@@ -45,12 +45,12 @@ class ProjectDetails extends Component {
             </div>
             <div className="card-action grey lighten-4 grey-text">
               <div className="author">
-                Written by {singleProject.authorFirstName}{" "}
-                {singleProject.authorLastName}
+                Written by {singleSong.authorFirstName}{" "}
+                {singleSong.authorLastName}
               </div>
               <div className="date">
                 Last updated{" "}
-                {moment(singleProject.updatedAt.toDate()).calendar()}
+                {moment(singleSong.updatedAt.toDate()).calendar()}
               </div>
               <DeleteProject history={history} id={match.params.id} />
             </div>
@@ -69,18 +69,18 @@ class ProjectDetails extends Component {
 
 const mapStateToProps = state => {
   return {
-    singleProject: state.singleProject,
+    singleSong: state.singleSong,
     auth: state.firebase.auth
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProject: id => dispatch(loadProject(id))
+    loadSong: id => dispatch(loadSong(id))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProjectDetails);
+)(SongDetails);

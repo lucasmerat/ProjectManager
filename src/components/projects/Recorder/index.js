@@ -38,7 +38,7 @@ class AudioRecorder extends Component {
     }
 
     blobToDataURL(recordedBlob.blob, this.props, function(dataurl, props) {
-      props.saveRecording(props.id, dataurl, props.singleProject.title);
+      props.saveRecording(props.id, dataurl, props.singleSong.title);
       notify.show("Recording saved!")
     });
   };
@@ -128,11 +128,11 @@ class AudioRecorder extends Component {
 
 const mapStateToProps = state => {
   console.log(state);
-  if (state.singleProject.recordings) {
-    let arr = Object.entries(state.singleProject.recordings);
+  if (state.singleSong.recordings) {
+    let arr = Object.entries(state.singleSong.recordings);
     return {
       recordings: arr,
-      singleProject: state.singleProject
+      singleSong: state.singleSong
     };
   }
 };

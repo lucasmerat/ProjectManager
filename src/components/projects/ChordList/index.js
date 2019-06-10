@@ -14,7 +14,7 @@ function ChordList({chords}) {
 
 const mapStateToProps = state =>{
   return{
-    chords: state.singleProject.chords
+    chords: state.singleSong.chords
   }
 }
 
