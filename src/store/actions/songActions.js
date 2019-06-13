@@ -205,34 +205,35 @@ export const pushTodo = (id, todo) => {
   todo = { text: todo, isCompleted: false };
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore();
-    const firebase = getFirebase();
-    console.log(firebase, firestore);
+    console.log('hi')
+    // const firestore = getFirestore();
+    // const firebase = getFirebase();
+    // console.log(firebase, firestore);
 
-    firestore
-      .collection("projects")
-      .doc(id)
-      .update({
-        todos: firebase.firestore.FieldValue.arrayUnion(todo)
-      })
-      .then(() => {
-        dispatch({ type: "SAVE_TODO", todo });
-      })
-      .catch(err => {
-        dispatch({ type: "SAVE_TODO_ERROR", err });
-      });
+    // firestore
+    //   .collection("projects")
+    //   .doc(id)
+    //   .update({
+    //     todos: firebase.firestore.FieldValue.arrayUnion(todo)
+    //   })
+    //   .then(() => {
+    //     dispatch({ type: "SAVE_TODO", todo });
+    //   })
+    //   .catch(err => {
+    //     dispatch({ type: "SAVE_TODO_ERROR", err });
+    //   });
   };
 };
 
 export const completeItem = (id, todo) => {
-  console.log(id, todo);
+
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore();
-    const firebase = getFirebase();
-    console.log(firebase, firestore);
-  };
-};
+    console.log('hi')
+
+  }
+}
+
 
 export const pushChord = (id, chord, variation, quality) => {
   console.log(quality);
