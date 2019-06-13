@@ -205,35 +205,57 @@ export const pushTodo = (id, todo) => {
   todo = { text: todo, isCompleted: false };
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    console.log('hi')
-    // const firestore = getFirestore();
-    // const firebase = getFirebase();
-    // console.log(firebase, firestore);
+    const firestore = getFirestore();
+    const firebase = getFirebase();
 
-    // firestore
-    //   .collection("projects")
-    //   .doc(id)
-    //   .update({
-    //     todos: firebase.firestore.FieldValue.arrayUnion(todo)
-    //   })
-    //   .then(() => {
-    //     dispatch({ type: "SAVE_TODO", todo });
-    //   })
-    //   .catch(err => {
-    //     dispatch({ type: "SAVE_TODO_ERROR", err });
-    //   });
+    firestore
+      .collection("projects")
+      .doc(id)
+      .update({
+        todos: firebase.firestore.FieldValue.arrayUnion(todo)
+      })
+      .then(() => {
+        dispatch({ type: "SAVE_TODO", todo });
+      })
+      .catch(err => {
+        dispatch({ type: "SAVE_TODO_ERROR", err });
+      });
   };
 };
 
 export const completeItem = (id, todo) => {
-
-
+  console.log(todo);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    console.log('hi')
+    const firestore = getFirestore();
+    const firebase = getFirebase();
 
-  }
-}
+    firestore
+      .collection("projects")
+      .doc(id)
+      .update({
+        todos: firebase.firestore.FieldValue.arrayRemove(todo)
+      })
+      .then(() => {
+        todo.isCompleted = !todo.isCompleted;
 
+        firestore
+          .collection("projects")
+          .doc(id)
+          .update({
+            todos: firebase.firestore.FieldValue.arrayUnion(todo)
+          })
+          .then(() => {
+            dispatch({ type: "COMPLETE_TODO", todo });
+          })
+          .catch(err => {
+            dispatch({ type: "COMPLETE_TODO_ERROR", err });
+          });
+      })
+      .catch(err => {
+        dispatch({ type: "SAVE_TODO_ERROR", err });
+      });
+  };
+};
 
 export const pushChord = (id, chord, variation, quality) => {
   console.log(quality);

@@ -39,11 +39,14 @@ const singleSongReducer = (state = initState, action) => {
     case "SAVE_TODO_ERROR":
       console.log("Error saving todo", action, state);
       return action.err;
-    case "UPDATE_TODO":
+    case "COMPLETE_TODO":
       console.log("Updated todo", action, state);
-      state.todos = [...state.todos, action.todo];
-      return state;
-    case 'UPDATE_TODO_ERROR':
+      const stateWithNewTodo = {...state};
+      const filteredTodos = stateWithNewTodo.todos.filter(todo=>todo.text !== action.todo.text);
+      filteredTodos.push(action.todo);
+      stateWithNewTodo.todos = filteredTodos;
+      return stateWithNewTodo;
+    case 'COMPLETE_TODO_ERROR':
       console.log('Error saving todo', action,state)
       return action.err;
     case "SAVE_CHORD":
