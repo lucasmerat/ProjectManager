@@ -224,7 +224,6 @@ export const pushTodo = (id, todo) => {
 };
 
 export const completeItem = (id, todo) => {
-  console.log(todo);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();

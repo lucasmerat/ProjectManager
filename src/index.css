@@ -19,22 +19,4 @@ code {
     monospace;
 }
 
-form {
-  padding:20px;
-  margin-top:60px;
-}
 
-form button, form h5 {
-  margin:20px 0px;
-}
-
-
-#lyrics{
-  height:200px;
-}
-
-canvas {
-  width: 100%;
-  height: 174px;
-  border-radius: 5px;
-}

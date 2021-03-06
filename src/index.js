@@ -19,7 +19,6 @@ const store = createStore(rootReducer,
     reactReduxFirebase(fbConfig, {useFirestoreForProfile: true, userProfile: 'users', attachAuthIsReady:true}) //passes firestore collection users to the profile property
     )
 );
-console.log(getFirestore)
 
 //waits for auth state to be ready before rendering to the dom
 store.firebaseAuthIsReady.then(()=>{
