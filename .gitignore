@@ -40,6 +40,10 @@ sketch
 # comment the following lines
 !.yarn/cache
 
+tailwind.generated.css
+yarn.lock
+.tool-versions
+
 # and uncomment the following lines
 # .pnp.*
 

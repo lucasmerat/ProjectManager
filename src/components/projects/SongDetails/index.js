@@ -9,6 +9,7 @@ import Todos from "../Todos";
 import DeleteProject from "../DeleteProject";
 import { loadSong } from "../../../store/actions/songActions";
 import "./SongDetails.css";
+import LoadingMask from "../../layout/LoadingMask";
 
 class SongDetails extends Component {
   componentDidMount() {
@@ -59,8 +60,15 @@ class SongDetails extends Component {
       );
     } else {
       return (
-        <div className="container center">
-          <p>Loading song...</p>
+        <div className="mt-6 h-screen m-auto w-4/5 pt-12 bg-white">
+          <div className="flex mb-12 mx-4">
+            <LoadingMask className="mr-4" />
+            <LoadingMask />
+          </div>
+          <div className="flex mb-12 mx-4">
+            <LoadingMask className="mr-4" />
+            <LoadingMask />
+          </div>
         </div>
       );
     }
