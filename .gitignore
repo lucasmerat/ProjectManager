@@ -44,6 +44,9 @@ tailwind.generated.css
 yarn.lock
 .tool-versions
 
+dist/
+dist/index.html
+
 # and uncomment the following lines
 # .pnp.*
 
