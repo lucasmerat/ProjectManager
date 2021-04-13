@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Todo from '../Todo/'
 import TodoForm from '../TodoForm/'
 import { pushTodo, completeItem } from '../../../store/actions/songActions'
@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { notify } from "react-notify-toast";
 
 const Todos = ({todos, pushTodo, id, completeItem}) =>{
-    console.log(todos)
     const addTodo = text =>{
         pushTodo(id, text);
         notify.show("Todo added!")

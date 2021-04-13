@@ -57,7 +57,6 @@ export const createProject = project => {
         chords: ""
       })
       .then(() => {
-        console.log(project);
         firestore
           .collection("notifications")
           .add({
@@ -164,7 +163,6 @@ export const deleteRecording = (recordingId, id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
-    console.log(firebase.firestore.FieldValue);
     firestore
       .collection("projects")
       .doc(id)
@@ -257,7 +255,6 @@ export const completeItem = (id, todo) => {
 };
 
 export const pushChord = (id, chord, variation, quality) => {
-  console.log(quality);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
@@ -266,7 +263,6 @@ export const pushChord = (id, chord, variation, quality) => {
       variation,
       quality
     };
-    console.log(combinedChord);
 
     firestore
       .collection("projects")
