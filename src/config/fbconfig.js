@@ -3,7 +3,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 
-  var config = {
+  let config = {
     apiKey: "AIzaSyBeGog7d_yyis0U5rPSUfjxee6-QNcvKE0",
     authDomain: "lucas-mario-plan.firebaseapp.com",
     databaseURL: "https://lucas-mario-plan.firebaseio.com",

@@ -19,6 +19,7 @@ const TodoForm = ({ addTodo }) => {
         placeholder="What's next?"
         onChange={e => setValue(e.target.value)}
       />
+      <input className="card-button btn pink lighten-1" type="submit" value="Add todo" />
     </form>
   );
 };
