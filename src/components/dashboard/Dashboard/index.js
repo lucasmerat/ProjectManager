@@ -48,7 +48,6 @@ export default compose(
     mapDispatchToProps
   ),
   firestoreConnect(props => {
-    console.log(props);
     if (props.auth.uid) {
       return [
         {
