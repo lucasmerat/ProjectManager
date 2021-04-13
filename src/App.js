@@ -3,10 +3,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/auth/PrivateRoute/";
 import NavBar from "./components/layout/Navbar/";
 import Dashboard from "./components/dashboard/Dashboard/";
-import SongDetails from "./components/projects/SongDetails";
+import SongDetails from "./components/songs/SongDetails";
 import SignIn from "./components/auth/SignIn/";
 import SignUp from "./components/auth/SignUp/";
-import CreateSong from "./components/projects/CreateSong";
+import CreateSong from "./components/songs/CreateSong";
 import Notifications from "react-notify-toast";
 
 class App extends Component {
